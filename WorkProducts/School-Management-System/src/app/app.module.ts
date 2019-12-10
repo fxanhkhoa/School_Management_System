@@ -12,21 +12,26 @@ import { AppComponent } from './app.component';
 /* Browser Animations */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './home/home.component';
 
 /* define Route */
 const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'companies', component: HomeComponent },
+  { path: 'users', component: HomeComponent },
   {
     path: '',
     redirectTo: '/',
     pathMatch: 'full'
-  }
+  },
   {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
