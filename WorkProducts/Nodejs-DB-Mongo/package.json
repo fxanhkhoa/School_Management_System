@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-db-mongo",
+  "version": "1.0.0",
+  "description": "resful api database mongodb based on nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fxanhkhoa",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
