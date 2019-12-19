@@ -1,0 +1,19 @@
+use school-management-system
+db.updateUser(
+  {
+    user: "myAdmin",
+    pwd:  passwordPrompt(),   // or cleartext password
+    roles: [ { role: "readWrite", db: "school-management-system" },
+             { role: "read", db: "reporting" } ]
+  }
+)
+
+use school-management-system
+db.updateUser(
+   "myAdmin",
+   {
+     roles : [
+       { role: "readWrite", db: "school-management-system" },
+     ]
+   }
+)
