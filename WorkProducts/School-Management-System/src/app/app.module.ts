@@ -6,22 +6,31 @@ import { NgModule } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
+/* Form Module */
+import {FormsModule} from '@angular/forms';
+/* HttpClient Module*/
+import {HttpClientModule} from '@angular/common/http'
 
 /* App component */
 import { AppComponent } from './app.component';
 /* Browser Animations */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+/* Component */
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+/* Auth Service */
+import { AuthService } from './auth.service';
 
 /* define Route */
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'companies', component: HomeComponent },
-  { path: 'users', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: '',
-    redirectTo: '/',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {path: '**', component: PageNotFoundComponent}
@@ -31,7 +40,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +50,11 @@ const appRoutes: Routes = [
     MatSliderModule,
     RouterModule.forRoot(
       appRoutes
-    )
+    ),
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const mongoose = require('mongoose')
-const db = "mongodb://myAdmin:myAdmin@localhost:6969/school-management-system"
+const db = "mongodb://myAdmin:myAdmin@localhost:27017/school-management-system"
 
 mongoose.connect(db, 
                   { 
@@ -34,6 +34,39 @@ router.post('/register', (req, res) =>{
          res.status(200).send(registeredUser)
       }
    })
+})
+
+router.post('/login', (req, res) =>{
+   let userData = req.body
+
+   User.findOne({email: userData.email}, (error, user) =>{
+      if (error){
+         console.log(error)
+      } else {
+         if (!user){
+            res.status(401).send("Invalid email")
+         }
+         else if (user.password != userData.password){
+            res.status(401).send('Invalid password');
+         } else {
+            res.status(200).send(user)
+         }
+      }
+   })
+})
+
+router.get('/events', (req, res) =>{
+   let events = [
+
+   ]
+   res.json(events)
+})
+
+router.get('/special', (req, res) =>{
+   let events = [
+
+   ]
+   res.json(events)
 })
 
 module.exports = router
