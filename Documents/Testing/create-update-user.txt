@@ -17,3 +17,16 @@ db.updateUser(
      ]
    }
 )
+
+use school-management-system
+db.createUser(
+  {
+    user: "myAdmin",
+    pwd:  passwordPrompt(),   // or cleartext password
+    roles: [ { role: "readWrite", db: "school-management-system" }]
+  }
+)
+
+login mongo
+
+mongo --port 27017  --authenticationDatabase "admin" -u "root" -p

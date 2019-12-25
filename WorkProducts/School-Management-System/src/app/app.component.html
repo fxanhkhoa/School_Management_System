@@ -3,4 +3,5 @@
         <!-- <default-feature></default-feature> DELETE THIS -->
         <router-outlet></router-outlet>        <!-- ADD THIS -->
     </div>
+    <a style="cursor: pointer;" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Logout</a>
 </div>

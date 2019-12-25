@@ -20,6 +20,22 @@ mongoose.connect(db,
    }
 })
 
+function verifyToken(req, res, next){
+   if (!req.headers.authorization) {
+      return res.status(401).send("Unauthorized request")
+   }
+   let token = req.headers.authorization.split(' ')[1]
+   if (token === 'null') {
+      return res.status(401).send("Unauthorized request")
+   }
+   let payload = jwt.verify(token, 'secretKey')
+   if (!payload) {
+      return res.status(401).send("Unauthorized request")
+   }
+   req.userId = payload.subject
+   next()
+}
+
 router.get('/', (req, res) => {
    res.send('From API Route')
 })
@@ -72,6 +88,15 @@ router.get('/special', (req, res) =>{
 
    ]
    res.json(events)
+})
+
+router.get('/dashboard', verifyToken, (req, res) =>{
+   let data = [
+      {
+         "id":"abc"
+      }
+   ]
+   res.json(data)
 })
 
 module.exports = router

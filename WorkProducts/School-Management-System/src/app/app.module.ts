@@ -9,7 +9,7 @@ import {RouterModule, Routes} from '@angular/router';
 /* Form Module */
 import {FormsModule} from '@angular/forms';
 /* HttpClient Module*/
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 
 /* App component */
 import { AppComponent } from './app.component';
@@ -24,7 +24,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 /* Auth Service */
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-
+/* Event Service */
+import { EventService }  from './event.service';
+/* Token Interceptor */
+import { TokenInterceptorService } from './token-interceptor.service'
 
 /* define Route */
 const appRoutes: Routes = [
@@ -59,7 +62,12 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, EventService,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
