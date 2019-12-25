@@ -2,8 +2,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 /* NgModule */
 import { NgModule } from '@angular/core';
-/* Mat Slider */
+/* Angular Material */
 import { MatSliderModule } from '@angular/material/slider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/';
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
 /* Form Module */
@@ -60,7 +62,9 @@ const appRoutes: Routes = [
       appRoutes
     ),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {
