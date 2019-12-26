@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
 /* Form Module */
@@ -65,7 +66,12 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatToolbarModule, 
+    MatIconModule, 
+    MatSidenavModule, 
+    MatListModule, 
+    MatButtonModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {

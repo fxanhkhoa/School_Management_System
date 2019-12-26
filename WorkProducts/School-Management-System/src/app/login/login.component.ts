@@ -39,16 +39,19 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(){
-    // this._auth.loginUser(this.loginUserData)
-    //   .subscribe(
-    //     res => {
-    //       console.log(res)
-    //       localStorage.setItem('token', res.token)
-    //       this._router.navigate(['/home'])
-    //     },
-    //     err => console.log(err)
-    //   )
-    console.log(this.loginGroup.get('email'))
+    this.loginUserData = {
+      "email": this.loginGroup.get('email').value,
+      "password": this.loginGroup.get('password').value
+    }
+    this._auth.loginUser(this.loginUserData)
+      .subscribe(
+        res => {
+          // console.log(res)
+          localStorage.setItem('token', res.token)
+          this._router.navigate(['/home'])
+        },
+        err => console.log(err)
+      )
   }
 
 }

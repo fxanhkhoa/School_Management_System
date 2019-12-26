@@ -1,27 +1,40 @@
 <div id="login-body">
   <h1 class='elegantshadow'>LOGIN</h1>
   <div [formGroup]="loginGroup">
-    <mat-form-field style="width:400px !important">
-      <input 
-        matInput 
-        placeholder="Email"
-        [errorStateMatcher]="matcher" 
-        id="email" 
-        [formControl] = "loginGroup.get('email')"
-        formControlName="email">
-      <mat-error *ngIf="loginGroup.get('email')?.hasError('email') && !loginGroup.get('email')?.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="loginGroup.get('email')?.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input 
-        matInput
-        type="password"
-      >
-    </mat-form-field>
+    <div class="form-group">
+      <mat-form-field style="width:400px !important">
+        <input 
+          matInput 
+          placeholder="Email"
+          [errorStateMatcher]="matcher" 
+          id="email" 
+          [formControl] = "loginGroup.get('email')"
+          formControlName="email"
+        >
+        <mat-error *ngIf="loginGroup.get('email')?.hasError('email') && !loginGroup.get('email')?.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="loginGroup.get('email')?.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field style="width:400px !important">
+        <input 
+          matInput
+          type="password"
+          placeholder="Password"
+          [errorStateMatcher]="matcher" 
+          id="password" 
+          [formControl] = "loginGroup.get('password')"
+          formControlName="password"
+        >
+        <mat-error *ngIf="loginGroup.get('password')?.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
     <button type="button" (click)="loginUser()" class="btn btn-success float-right">Login</button>
   </div>
 </div>
