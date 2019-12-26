@@ -1,6 +1,27 @@
 <div id="login-body">
   <h1 class='elegantshadow'>LOGIN</h1>
-  <mat-form-field>
-    <input matInput placeholder="Input">
-  </mat-form-field>
+  <div [formGroup]="loginGroup">
+    <mat-form-field style="width:400px !important">
+      <input 
+        matInput 
+        placeholder="Email"
+        [errorStateMatcher]="matcher" 
+        id="email" 
+        [formControl] = "loginGroup.get('email')"
+        formControlName="email">
+      <mat-error *ngIf="loginGroup.get('email')?.hasError('email') && !loginGroup.get('email')?.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="loginGroup.get('email')?.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input 
+        matInput
+        type="password"
+      >
+    </mat-form-field>
+    <button type="button" (click)="loginUser()" class="btn btn-success float-right">Login</button>
+  </div>
 </div>

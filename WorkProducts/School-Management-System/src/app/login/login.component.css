@@ -1,13 +1,11 @@
 #login-body{
-   position: relative;
-   height: 100vh;
-   display: -webkit-flex;
-   /* display: flex; */
-   /* -webkit-flex-wrap: wrap; */
-   /* flex-wrap: wrap; */
-   /* -webkit-align-content: center; */
-   align-content: center;
-   /* background-image: url("../../assets/BG_Image/metal.jpg"); */
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: top;
+  align-items: center;
+  flex-direction: column;
+  /* background-image: url("../../assets/BG_Image/metal.jpg"); */
 }
 
 #login-body .title{

@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { FormControl, NgForm, Validator, FormGroupDirective, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-login',
@@ -9,23 +19,36 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  /** Initialize Form Login Group and FormControl inside */
+  loginGroup = this._formBuilder.group({
+    email: new FormControl('',[
+      Validators.required,
+      Validators.email
+    ]),
+    password: new FormControl('', [
+      Validators.required
+    ]),
+  });
+  
   loginUserData = {}
   constructor(private _auth: AuthService,
-              private _router: Router) { }
+              private _router: Router,
+              public _formBuilder: FormBuilder) {}
 
   ngOnInit() {
   }
 
   loginUser(){
-    this._auth.loginUser(this.loginUserData)
-      .subscribe(
-        res => {
-          console.log(res)
-          localStorage.setItem('token', res.token)
-          this._router.navigate(['/home'])
-        },
-        err => console.log(err)
-      )
+    // this._auth.loginUser(this.loginUserData)
+    //   .subscribe(
+    //     res => {
+    //       console.log(res)
+    //       localStorage.setItem('token', res.token)
+    //       this._router.navigate(['/home'])
+    //     },
+    //     err => console.log(err)
+    //   )
+    console.log(this.loginGroup.get('email'))
   }
 
 }

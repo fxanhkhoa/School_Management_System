@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/';
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
 /* Form Module */
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 /* HttpClient Module*/
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 
@@ -64,7 +64,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {
