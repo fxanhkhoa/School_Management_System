@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/';
-import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatMenuModule } from '@angular/material';
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
 /* Form Module */
@@ -71,7 +71,8 @@ const appRoutes: Routes = [
     MatIconModule, 
     MatSidenavModule, 
     MatListModule, 
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {
