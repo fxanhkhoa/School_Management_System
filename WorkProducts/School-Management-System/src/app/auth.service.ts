@@ -9,6 +9,7 @@ export class AuthService {
   
   private _registerUrl = "http://localhost:3000/api/register"
   private _loginUrl = "http://localhost:3000/api/login"
+  private static role;
 
   constructor(private http: HttpClient,
               private _router: Router) { }
@@ -22,15 +23,28 @@ export class AuthService {
   }
 
   loggedIn(){
-    return !!localStorage.getItem('token')
+    return !!sessionStorage.getItem('token')
+  }
+
+  setRole(role){
+    AuthService.role = role
+    console.log(AuthService.role)
+  }
+
+  isAdmin(){
+    if (AuthService.role == "admin"){
+      return true
+    } else{
+      return false
+    }
   }
 
   logoutUser(){
-    localStorage.removeItem('token')
+    sessionStorage.removeItem('token')
     this._router.navigateByUrl(this._router.url)
   }
 
   getToken(){
-    return localStorage.getItem('token')
+    return sessionStorage.getItem('token')
   }
 }
