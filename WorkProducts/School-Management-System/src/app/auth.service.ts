@@ -9,6 +9,7 @@ export class AuthService {
   
   private _registerUrl = "http://localhost:3000/api/register"
   private _loginUrl = "http://localhost:3000/api/login"
+  private _reloadUrl = "http://localhost:3000/api/reload"
   private static role;
 
   constructor(private http: HttpClient,
@@ -28,7 +29,6 @@ export class AuthService {
 
   setRole(role){
     AuthService.role = role
-    console.log(AuthService.role)
   }
 
   isAdmin(){
@@ -37,6 +37,10 @@ export class AuthService {
     } else{
       return false
     }
+  }
+
+  reloaded(email){
+    return this.http.post<any>(this._reloadUrl,{email});
   }
 
   logoutUser(){

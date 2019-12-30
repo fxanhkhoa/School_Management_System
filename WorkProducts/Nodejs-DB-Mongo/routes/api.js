@@ -72,6 +72,7 @@ router.post('/login', (req, res) =>{
             let token = jwt.sign(payload, 'secretKey')
             let sendData = {
                "token": token,
+               "email": user.email,
                "role": user.role
             }
             res.status(200).send(sendData)
@@ -101,6 +102,16 @@ router.get('/dashboard', verifyToken, (req, res) =>{
       }
    ]
    res.json(data)
+})
+
+router.post('/reload', verifyToken, (req, res) =>{
+   let userData = req.body
+   User.findOne({email: userData.email}, (error, user) =>{
+      let data ={
+         "role": user.role
+      }
+      res.json(data)
+   })
 })
 
 module.exports = router

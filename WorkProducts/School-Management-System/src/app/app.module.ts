@@ -7,6 +7,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatMenuModule } from '@angular/material';
+import { MatRadioModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
 /* Form Module */
@@ -30,13 +31,15 @@ import { AuthGuard } from './auth.guard';
 /* Event Service */
 import { EventService }  from './event.service';
 /* Token Interceptor */
-import { TokenInterceptorService } from './token-interceptor.service'
+import { TokenInterceptorService } from './token-interceptor.service';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 /* define Route */
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {
     path: '',
@@ -53,7 +56,8 @@ const appRoutes: Routes = [
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -72,14 +76,19 @@ const appRoutes: Routes = [
     MatSidenavModule, 
     MatListModule, 
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }],
+  },
+  {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

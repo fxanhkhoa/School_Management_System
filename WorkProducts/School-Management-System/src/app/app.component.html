@@ -35,8 +35,8 @@
         <button mat-menu-item *ngIf="!_authService.loggedIn()" [routerLink]="'/login'">
           <span>Login</span>
         </button>
-        <button mat-menu-item *ngIf="!_authService.loggedIn()" [routerLink]="'/register'">
-          <span>Register</span>
+        <button mat-menu-item *ngIf="_authService.loggedIn()" [routerLink]="'/register'">
+          <span>Register Student</span>
         </button>
         <button mat-menu-item *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Logout</button>
       </mat-menu>
@@ -57,11 +57,11 @@
           <mat-icon>expand_more</mat-icon>
         </button>
         <div class="list-group collapse" id="item-student">
-          <a href="#item-student-book" class="list-group-item" data-toggle="collapse">
+          <a *ngIf="_authService.isAdmin()" href="#item-student-book" class="list-group-item" data-toggle="collapse">
             <span>Book test</span>
-            <span>{{_authService.isAdmin()}}</span>
+            <!-- <span>{{_authService.isAdmin()}}</span> -->
           </a>
-          <a *ngIf="_authService.isAdmin()" href="#item-student-add" class="list-group-item" data-toggle="collapse">
+          <a *ngIf="_authService.isAdmin()" [routerLink]="'/add-student'" class="list-group-item" data-toggle="collapse">
             <span>Add Student</span>
           </a>
         </div>

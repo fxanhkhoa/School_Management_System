@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         res => {
           // console.log(res)
           sessionStorage.setItem('token', res.token)
-          // localStorage.setItem('currentUser', JSON.stringify(res))
+          sessionStorage.setItem('email', res.email)
           this._auth.setRole(res.role)
           this._router.navigate(['/home'])
         },

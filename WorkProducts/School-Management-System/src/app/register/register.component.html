@@ -1,32 +1,83 @@
-<div class="py-5">
-   <div class="row">
-     <div class="col-md-6 mx-auto">
-       <span class="anchor" id="formLogin"></span>
- 
-       <!-- form card login -->
-       <div class="card rounded-0">
-         <div class="card-header">
-           <h3 class="mb-0">Register</h3>
-         </div>
-         <div class="card-body">
-           <form class="form">
-             <div class="form-group">
-               <label for="uname1">Username</label>
-               <input type="text" [(ngModel)]="registerUserData.email" name="email" class="form-control rounded-0" required>
-             </div>
-             <div class="form-group">
-               <label>Password</label>
-               <input type="password" [(ngModel)]="registerUserData.password" name="password" class="form-control rounded-0"  required>
-             </div>
-             <button type="button" (click)="registerUser()" class="btn btn-primary float-right">Register</button>
-           </form>
-         </div>
-         <!--/card-block-->
-       </div>
-       <!-- /form card login -->
- 
-     </div>
- 
- 
-   </div>
- </div>
+<div id="register-body">
+  <h1 class='elegantshadow'>REGISTER</h1>
+  <div [formGroup]="registerGroup" class="container">
+    
+    
+    <div class="form-group">
+      <div class="row">
+
+        <!-- Email Field -->
+        <div class="col">
+          <mat-form-field style="width:200px !important">
+            <input 
+              matInput 
+              placeholder="Email"
+              [errorStateMatcher]="matcher" 
+              id="email" 
+              [formControl] = "registerGroup.get('email')"
+              formControlName="email"
+            >
+            <mat-error *ngIf="registerGroup.get('email')?.hasError('email') && !loginGroup.get('email')?.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="registerGroup.get('email')?.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Fullname Field -->
+        <div class="col">
+          <mat-form-field style="width:400px !important">
+            <input 
+              matInput 
+              placeholder="fullname"
+              [errorStateMatcher]="matcher" 
+              id="fullname" 
+              [formControl] = "registerGroup.get('fullname')"
+              formControlName="fullname"
+            >
+            <mat-error *ngIf="registerGroup.get('fullname')?.hasError('required')">
+              Fullname is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gender Field -->
+    <div class="row">
+      <div class="col">
+          <label class="radio-group-label">Gender</label>
+          <mat-radio-group 
+            class="s-radio-group"
+            aria-label="Select an option"
+            [formControl] = "registerGroup.get('sex')"
+          >
+          <mat-radio-button class="s-radio-button" *ngFor="let gender of genders" [value]="gender">
+            {{gender}}
+          </mat-radio-button>
+          </mat-radio-group>
+      </div>
+    </div>
+
+    <!-- Date of birth Field -->
+    <div class="form-group">
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input 
+              [formControl] = "registerGroup.get('date_of_birth')"  
+              matInput [matDatepicker]="picker" 
+              placeholder="Birthday"
+            >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" (click)="registerUser()" [disabled]="!registerGroup.valid" class="btn btn-success float-right">Login</button>
+  </div>
+</div>

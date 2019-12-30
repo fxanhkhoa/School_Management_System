@@ -35,6 +35,6 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <button type="button" (click)="loginUser()" class="btn btn-success float-right">Login</button>
+    <button type="button" (click)="loginUser()" [disabled]="!loginGroup.valid" class="btn btn-success float-right">Login</button>
   </div>
 </div>
