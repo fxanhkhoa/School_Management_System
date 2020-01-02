@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatMenuModule } from '@angular/material';
 import { MatRadioModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
+import { MatStepperModule, MatAutocompleteModule } from '@angular/material';
+
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
 /* Form Module */
@@ -79,7 +81,9 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatStepperModule, 
+    MatAutocompleteModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {

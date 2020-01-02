@@ -2,13 +2,13 @@
   <h1 class='elegantshadow'>REGISTER</h1>
   <div [formGroup]="registerGroup" class="container">
     
-    
-    <div class="form-group">
-      <div class="row">
+    <mat-horizontal-stepper [linear]="false" #stepper>
+      <mat-step class="stepper">
+        <ng-template matStepLabel>Required Information</ng-template>
 
-        <!-- Email Field -->
-        <div class="col">
-          <mat-form-field style="width:200px !important">
+        <div class="row stepper-element">
+          <!-- Email Field -->
+          <mat-form-field style="width:400px !important">
             <input 
               matInput 
               placeholder="Email"
@@ -17,7 +17,7 @@
               [formControl] = "registerGroup.get('email')"
               formControlName="email"
             >
-            <mat-error *ngIf="registerGroup.get('email')?.hasError('email') && !loginGroup.get('email')?.hasError('required')">
+            <mat-error *ngIf="registerGroup.get('email')?.hasError('email') && !registerGroup.get('email')?.hasError('required')">
               Please enter a valid email address
             </mat-error>
             <mat-error *ngIf="registerGroup.get('email')?.hasError('required')">
@@ -25,9 +25,9 @@
             </mat-error>
           </mat-form-field>
         </div>
-
-        <!-- Fullname Field -->
-        <div class="col">
+        
+        <div class="row stepper-element">
+          <!-- Fullname Field -->
           <mat-form-field style="width:400px !important">
             <input 
               matInput 
@@ -42,42 +42,77 @@
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-    </div>
 
-    <!-- Gender Field -->
-    <div class="row">
-      <div class="col">
-          <label class="radio-group-label">Gender</label>
-          <mat-radio-group 
-            class="s-radio-group"
-            aria-label="Select an option"
-            [formControl] = "registerGroup.get('sex')"
-          >
-          <mat-radio-button class="s-radio-button" *ngFor="let gender of genders" [value]="gender">
-            {{gender}}
-          </mat-radio-button>
-          </mat-radio-group>
-      </div>
-    </div>
-
-    <!-- Date of birth Field -->
-    <div class="form-group">
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <input 
-              [formControl] = "registerGroup.get('date_of_birth')"  
-              matInput [matDatepicker]="picker" 
-              placeholder="Birthday"
-            >
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-          </mat-form-field>
+        <div class="stepper-element">
+          <button mat-button matStepperNext>Next</button>
         </div>
-      </div>
-    </div>
+      </mat-step>
 
-    <button type="button" (click)="registerUser()" [disabled]="!registerGroup.valid" class="btn btn-success float-right">Login</button>
+      <mat-step>
+        <ng-template matStepLabel>Personal Information</ng-template>
+        
+        <!-- Gender Field -->
+        <div class="row stepper-element">
+          <div class="col">
+              <label class="radio-group-label">Gender</label>
+              <mat-radio-group 
+                class="s-radio-group stepper-element"
+                aria-label="Select an option"
+                [formControl] = "registerGroup.get('sex')"
+              >
+              <mat-radio-button class="s-radio-button" *ngFor="let gender of genders" [value]="gender">
+                {{gender}}
+              </mat-radio-button>
+              </mat-radio-group>
+          </div>
+        </div>
+
+        <!-- Date of birth Field -->
+        <div class="form-group stepper-element">
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <input 
+                  [formControl] = "registerGroup.get('date_of_birth')"  
+                  matInput [matDatepicker]="picker" 
+                  placeholder="Birthday"
+                >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="stepper-element">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Course Information</ng-template>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+        <button type="button" (click)="registerUser()" [disabled]="!registerGroup.valid" class="btn btn-success float-right">Login</button>
+      </mat-step>
+
+    </mat-horizontal-stepper>
+        
+        
+
+        <!-- Password Field -->
+        <div class="row">
+          
+        </div>
+
+        
+
+    
+
+    
+
+    
   </div>
 </div>
