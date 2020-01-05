@@ -36,6 +36,9 @@ import { EventService }  from './event.service';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { AddStudentComponent } from './add-student/add-student.component';
 
+/* Library */
+import { CalendarSchedulerModule } from 'calendar-scheduler';
+
 /* define Route */
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -83,7 +86,9 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatStepperModule, 
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    
+    CalendarSchedulerModule,
   ],
   providers: [AuthService, AuthGuard, EventService,
   {

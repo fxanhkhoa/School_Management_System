@@ -130,6 +130,76 @@
           }
         }
       }
+    },
+    "CalendaScheduler": {
+      "projectType": "library",
+      "root": "projects/calenda-scheduler",
+      "sourceRoot": "projects/calenda-scheduler/src",
+      "prefix": "fx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/calenda-scheduler/tsconfig.lib.json",
+            "project": "projects/calenda-scheduler/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/calenda-scheduler/src/test.ts",
+            "tsConfig": "projects/calenda-scheduler/tsconfig.spec.json",
+            "karmaConfig": "projects/calenda-scheduler/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/calenda-scheduler/tsconfig.lib.json",
+              "projects/calenda-scheduler/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "CalendarScheduler": {
+      "projectType": "library",
+      "root": "projects/calendar-scheduler",
+      "sourceRoot": "projects/calendar-scheduler/src",
+      "prefix": "fx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/calendar-scheduler/tsconfig.lib.json",
+            "project": "projects/calendar-scheduler/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/calendar-scheduler/src/test.ts",
+            "tsConfig": "projects/calendar-scheduler/tsconfig.spec.json",
+            "karmaConfig": "projects/calendar-scheduler/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/calendar-scheduler/tsconfig.lib.json",
+              "projects/calendar-scheduler/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "School-Management-System",
