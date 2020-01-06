@@ -4,7 +4,6 @@ import { CalendarSchedulerComponent } from './calendar-scheduler.component';
 import { MatGridListModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 
-
 @NgModule({
   declarations: [CalendarSchedulerComponent],
   imports: [

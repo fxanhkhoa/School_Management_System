@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Event } from './model/event';
+import { CalendarTypeDay } from './model/calendar-type-day';
 
 export interface Tile {
   color: string;
@@ -20,6 +23,8 @@ export class CalendarSchedulerComponent implements OnInit {
     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
+
+  @Input() calendarTypeDay: CalendarTypeDay;
   
   constructor() { }
 

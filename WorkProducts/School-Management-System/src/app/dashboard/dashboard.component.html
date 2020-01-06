@@ -1,6 +1,19 @@
 <div class="container">
-   <fx-CalendarScheduler>
+   <fx-CalendarScheduler
+      [calendarTypeDay]='_calendarTypeDay'
+   >
    
-   </fx-CalendarScheduler>
+   </fx-CalendarScheduler
+
+   >
 </div>
+
+<mat-grid-list cols="7" rowHeight="1:1">
+   <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="2"
+      [rowspan]="1"
+   >
+   </mat-grid-tile>
+</mat-grid-list>
 
