@@ -17,7 +17,21 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "calenda-scheduler": [
+        "dist/calenda-scheduler"
+      ],
+      "calenda-scheduler/*": [
+        "dist/calenda-scheduler/*"
+      ],
+      "calendar-scheduler": [
+        "dist/calendar-scheduler"
+      ],
+      "calendar-scheduler/*": [
+        "dist/calendar-scheduler/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
