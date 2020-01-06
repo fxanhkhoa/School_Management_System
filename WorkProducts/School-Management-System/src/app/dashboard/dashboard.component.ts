@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
 
   _event = new Event();
   _calendarTypeDay = new CalendarTypeDay();
+  testdata = 'CalendarTypeDay';
 
   constructor(private _eventService: EventService,
               private _router: Router) { }

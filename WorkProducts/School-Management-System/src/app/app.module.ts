@@ -1,5 +1,6 @@
 /* BrowserModule */
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 /* NgModule */
 import { NgModule } from '@angular/core';
 /* Angular Material */
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     MatSliderModule,
     RouterModule.forRoot(

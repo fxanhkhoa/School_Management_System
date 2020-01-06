@@ -24,6 +24,7 @@ export class CalendarSchedulerComponent implements OnInit {
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
 
+  @Input() type: String;
   @Input() calendarTypeDay: CalendarTypeDay;
   
   constructor() { }

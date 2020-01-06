@@ -1,16 +1,25 @@
-Hello
 <mat-grid-list cols="4" rowHeight="100px">
-   <mat-grid-tile
-       *ngFor="let tile of tiles"
-       [colspan]="tile.cols"
-       [rowspan]="tile.rows"
-       [style.background]="tile.color">
-     {{tile.text}}
-   </mat-grid-tile>
- </mat-grid-list>
-
- {{calendarTypeDay.selectedDay}}
-
-<mat-grid-list cols="7" rowHeight="2:1">
-
+  <mat-grid-tile 
+    *ngFor="let tile of tiles" 
+    [colspan]="tile.cols" 
+    [rowspan]="tile.rows" 
+    [style.background]="tile.color"
+  >
+    {{tile.text}}
+  </mat-grid-tile>
 </mat-grid-list>
+
+<!-- Calendar Type One Day -->
+<mat-grid-list *ngIf="type == 'CalendarTypeDay'" cols="7" rowHeight="2:1">
+  <mat-grid-tile
+    *ngFor="let tile of tiles" 
+    [colspan]="tile.cols" 
+    [rowspan]="tile.rows" 
+    [style.background]="tile.color"
+  >
+    {{tile.text}}
+  </mat-grid-tile>
+</mat-grid-list>
+
+<!-- This is used for all other tag or all thing inside <fx-CalendarScheduler></fx-CalendarScheduler> -->
+<ng-content></ng-content>
