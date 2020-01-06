@@ -11,11 +11,12 @@
           <mat-form-field style="width:400px !important">
             <input 
               matInput 
-              placeholder="Email"
-              [errorStateMatcher]="matcher" 
+              placeholder="Input Email"
+              [errorStateMatcher]="matcher"
               id="email" 
               [formControl] = "registerGroup.get('email')"
               formControlName="email"
+              required
             >
             <mat-error *ngIf="registerGroup.get('email')?.hasError('email') && !registerGroup.get('email')?.hasError('required')">
               Please enter a valid email address
@@ -25,17 +26,36 @@
             </mat-error>
           </mat-form-field>
         </div>
+
+        <div class="row stepper-element">
+          <!-- Password Field -->
+          <mat-form-field style="width:400px !important">
+            <input
+              matInput
+              placeholder="Input Password"
+              [errorStateMatcher]="matcher"
+              id="password"
+              [formControl]="registerGroup.get('password')"
+              formControlName="password"
+              required
+            >
+            <mat-error *ngIf="registerGroup.get('password')?.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
         
         <div class="row stepper-element">
           <!-- Fullname Field -->
           <mat-form-field style="width:400px !important">
             <input 
               matInput 
-              placeholder="fullname"
+              placeholder="Input Full Name"
               [errorStateMatcher]="matcher" 
               id="fullname" 
               [formControl] = "registerGroup.get('fullname')"
               formControlName="fullname"
+              required
             >
             <mat-error *ngIf="registerGroup.get('fullname')?.hasError('required')">
               Fullname is <strong>required</strong>
@@ -44,7 +64,7 @@
         </div>
 
         <div class="stepper-element">
-          <button mat-button matStepperNext>Next</button>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
         </div>
       </mat-step>
 
@@ -55,7 +75,7 @@
         <div class="row stepper-element">
           <div class="col">
               <label class="radio-group-label">Gender</label>
-              <mat-radio-group 
+              <mat-radio-group
                 class="s-radio-group stepper-element"
                 aria-label="Select an option"
                 [formControl] = "registerGroup.get('sex')"
@@ -85,15 +105,51 @@
         </div>
 
         <div class="stepper-element">
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
         </div>
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Course Information</ng-template>
+        <ng-template matStepLabel>Organization Information</ng-template>
+
+        <div class="row stepper-element">
+          <!-- Role Field -->
+          <mat-select
+            class="mat-select-style"
+            id = "role"
+            [errorStateMatcher]="matcher" 
+            [formControl] = "registerGroup.get('role')"
+            placeholder="Pick a Role"
+            required
+          >
+            <mat-option *ngFor="let role of roleList" [value]="role">
+              {{role}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="row stepper-element">
+          <mat-error *ngIf="registerGroup.get('role')?.hasError('required')">
+            Role is <strong>required</strong>
+          </mat-error>
+        </div>
+
+        <div class="row stepper-element">
+          <!-- KPI Field -->
+          <mat-form-field style="width:400px !important">
+            <input
+              matInput
+              placeholder="Input KPI"
+              id = "kpi"
+              [formControl] = "registerGroup.get('kpi')"
+              formControlName = "kpi"
+            >
+          </mat-form-field>
+        </div>
+        
         <div>
-          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
         </div>
         <button type="button" (click)="registerUser()" [disabled]="!registerGroup.valid" class="btn btn-success float-right">Login</button>
       </mat-step>
@@ -102,10 +158,7 @@
         
         
 
-        <!-- Password Field -->
-        <div class="row">
-          
-        </div>
+        
 
         
 

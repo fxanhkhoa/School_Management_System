@@ -20,6 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class RegisterComponent implements OnInit {
   registerUserData = {}
   genders: string[] = ['Male', 'Female', 'Other'];
+  roleList: string[] = ['admin','moderator','student'];
   startDate = new Date(1980, 0, 1);
 
   /** Initialize Form Login Group and FormControl inside */
@@ -28,11 +29,18 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.email
     ]),
+    password: new FormControl('',[
+      Validators.required
+    ]),
     fullname: new FormControl('',[
       Validators.required
     ]),
     sex: new FormControl('Male'),
-    date_of_birth: new FormControl('', Validators.required)
+    date_of_birth: new FormControl('', Validators.required),
+    role: new FormControl('',[
+      Validators.required
+    ]),
+    kpi: new FormControl('',[])
   });
 
   constructor(private _auth: AuthService,
