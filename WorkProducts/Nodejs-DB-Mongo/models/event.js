@@ -9,7 +9,8 @@ const eventSchema = new Schema({
     note: String,
     progress: String,
     priority: String,
-    type: String
+    type: String,
+    location: String
 })
 
 module.exports = mongoose.model('event', eventSchema, 'events')

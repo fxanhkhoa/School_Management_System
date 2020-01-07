@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 /** Calendar Model */
-import { Event, CalendarTypeDay } from 'calendar-scheduler';
+import { Event, CalendarTypeDay, CalendarTypeMonth } from 'calendar-scheduler';
 
 
 @Component({
@@ -20,7 +20,8 @@ export class DashboardComponent implements OnInit {
 
   _event = new Event();
   _calendarTypeDay = new CalendarTypeDay();
-  testdata = 'CalendarTypeDay';
+  _calendarType = 'CalendarTypeMonth';
+  _calendarTypeMonth = new CalendarTypeMonth();
 
   constructor(private _eventService: EventService,
               private _router: Router) { }
@@ -44,15 +45,29 @@ export class DashboardComponent implements OnInit {
     this._event.startdate = new Date("January 3, 2020");
     this._event.enddate = new Date("January 5, 2020");
     this._event.name = "1st event";
+    this._event.content = "Meeting at 3rd floor";
+    this._event.note = "Bring book, notebook";
+    this._event.progress = "On Going";
+    this._event.priority = "High";
+    this._event.type = "Meeting";
+    this._event.location = "Room 301 Floor 3rd";
     console.log(this._event.containDay(new Date("January 3, 2020")));
 
-    this._calendarTypeDay.selectedDay = new Date("January 3, 2020");
 
-    this._eventService.createEvent(this._event)
-        .subscribe(
-          res => console.log(res),
-          err => console.log(err)
-        )
+    this._calendarTypeDay.selectedDay = new Date("January 3, 2020");
+    this._calendarTypeDay.events.push(this._event);
+    this._calendarTypeDay.events.push(this._event);
+
+    this._calendarTypeMonth.selectedMonth = 2;
+    this._calendarTypeMonth.selectedYear = 2020;
+    this._calendarTypeMonth.events.push(this._event);
+    this._calendarTypeMonth.events.push(this._event);
+
+    // this._eventService.createEvent(this._event)
+    //     .subscribe(
+    //       res => console.log(res),
+    //       err => console.log(err)
+    //     )
   }
 
 }

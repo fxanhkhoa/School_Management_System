@@ -1,0 +1,17 @@
+.high-priority{
+    color: #c20e02;
+}
+
+.low-priority{
+    color: #10bd00;
+}
+
+.normal-priority{
+    color: #2b40a6;
+}
+
+.h4-list-item{
+    font-weight: bold;
+    color: #2b40a6;
+    text-shadow: 2px 2px #e3e3e3;
+}

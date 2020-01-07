@@ -1,14 +1,3 @@
-<mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile 
-    *ngFor="let tile of tiles" 
-    [colspan]="tile.cols" 
-    [rowspan]="tile.rows" 
-    [style.background]="tile.color"
-  >
-    {{tile.text}}
-  </mat-grid-tile>
-</mat-grid-list>
-
 <!-- Calendar Type One Day -->
 <mat-grid-list *ngIf="type == 'CalendarTypeDay'" cols="7" rowHeight="2:1">
   <mat-grid-tile
@@ -21,5 +10,126 @@
   </mat-grid-tile>
 </mat-grid-list>
 
+<!-- For Debug -->
+<!-- {{type}} -->
+<!-- {{calendarTypeDay}} -->
+
 <!-- This is used for all other tag or all thing inside <fx-CalendarScheduler></fx-CalendarScheduler> -->
-<ng-content></ng-content>
+
+<!-- Calendar Type One Day -->
+<div class="container" *ngIf="type == 'CalendarTypeDay'">
+  <mat-card>
+    <!-- Header Information -->
+    <div mat-card-avatar>
+      <mat-icon>calendar_today</mat-icon>
+    </div>
+    <mat-card-title>
+      <ng-content select="fx-calendar-scheduler-header"></ng-content>
+    </mat-card-title>
+    <mat-card-subtitle>Events of day</mat-card-subtitle>
+    <!-- Mid Content Information -->
+    <mat-card-content>
+      <!-- Expansion for each Event -->
+      <mat-accordion>
+        <!-- Each expansion pannel -->
+        <mat-expansion-panel *ngFor="let event of calendarTypeDay.events">
+          <!-- Header -->
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{event.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{event.progress}} | 
+              <strong [ngClass]="{'high-priority': event.priority == 'High', 
+                                'low-priority': event.priority == 'Low',
+                                'normal-priority': event.priority == 'Normal'}">
+                {{event.priority}}
+              </strong>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          
+          <!-- Body Content -->
+          <!-- Time -->
+          <mat-list>
+            <h3 mat-subheader>TIME</h3>
+            <mat-list-item>
+              <mat-icon mat-list-icon>access_time</mat-icon>
+              <h4 mat-line>Schedule</h4>
+              <h4 mat-line>
+                Start Time: <strong>{{event.startdate | date:'medium'}}</strong>
+              </h4>
+              <h4 mat-line>
+                End Time: <strong>{{event.enddate | date:'medium'}}</strong>
+              </h4>
+              <h4 mat-line>
+                Location: <strong>{{event.location}}</strong>
+              </h4>
+            </mat-list-item>
+          </mat-list>
+
+          <!--  -->
+          <mat-list>
+            <h3 mat-subheader>Detail</h3>
+            <mat-list-item>
+              <h4 mat-line><b class="h4-list-item">Name: </b> <i>{{event.name}}</i></h4>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <mat-list-item>
+              <h4 mat-line><b class="h4-list-item">Content: </b> <i>{{event.content}}</i></h4>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            
+            <mat-list-item>
+              <h4 mat-line><b class="h4-list-item">Note: </b> <i>{{event.note}}</i></h4>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <mat-list-item>
+              <h4 mat-line><b class="h4-list-item">Progress: </b> <i>{{event.progress}}</i></h4>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <mat-list-item>
+              <h4 mat-line><b class="h4-list-item">Priority: </b> <i>{{event.priority}}</i></h4>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <mat-list-item>
+              <h4 mat-line><b class="h4-list-item">Type: </b> <i>{{event.type}}</i></h4>
+            </mat-list-item>
+          </mat-list>
+          
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Self aware panel
+            </mat-panel-title>
+            <mat-panel-description>
+              Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<!-- Calendar Type One Month -->
+<div class="container" *ngIf="type == 'CalendarTypeMonth'">
+  <mat-grid-list cols="7" rowHeight="2:1">
+    <!-- Fill blank -->
+    <mat-grid-tile
+      *ngFor = "let item of Arr(num).fill(1); let i = index;"
+      [colspan]="1" 
+      [rowspan]="1"
+      [style.background]="'#DDBDF1'"
+    >
+    {{dayInMonth}}
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

@@ -7,6 +7,7 @@ export class Event {
     progress: String = null; // Calculate % by hours
     priority: String = null;
     type: String = null;
+    location: String = 'None';
 
     /**
      * Summary: Check if this event contains a day

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Event } from './model/event';
 import { CalendarTypeDay } from './model/calendar-type-day';
+import { CalendarTypeMonth } from './model/calendar-type-month';
 
 export interface Tile {
   color: string;
@@ -26,10 +27,24 @@ export class CalendarSchedulerComponent implements OnInit {
 
   @Input() type: String;
   @Input() calendarTypeDay: CalendarTypeDay;
+  @Input() calendarTypeMonth: CalendarTypeMonth;
   
+  panelOpenState = false;
+  Arr = Array;
+  num: Number;
+
+  dayInMonth: Number;
+  tempDate: Date;
+
   constructor() { }
 
   ngOnInit() {
+    this.tempDate = new Date();
+    this.tempDate.setMonth(this.calendarTypeMonth.selectedMonth);
+    this.tempDate.setFullYear(this.calendarTypeMonth.selectedYear);
+    this.tempDate.setDate(0);
+    this.dayInMonth = this.tempDate.getDate();
+    this.num = 2;
   }
 
   

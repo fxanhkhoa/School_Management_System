@@ -1,18 +1,12 @@
 <div class="container">
    <fx-CalendarScheduler
-      [type]="'CalendarTypeDay'"
+      [type]="_calendarType"
       [calendarTypeDay]='_calendarTypeDay'
+      [calendarTypeMonth]='_calendarTypeMonth'
    >
-      <fx-calendar-scheduler-header></fx-calendar-scheduler-header>
+      <fx-calendar-scheduler-header *ngIf="_calendarType == 'CalendarTypeDay'">
+         {{_calendarTypeDay.selectedDay | date}}
+      </fx-calendar-scheduler-header>
    </fx-CalendarScheduler>
 </div>
-
-<mat-grid-list cols="7" rowHeight="1:1">
-   <mat-grid-tile
-      *ngFor="let tile of tiles"
-      [colspan]="2"
-      [rowspan]="1"
-   >
-   </mat-grid-tile>
-</mat-grid-list>
 
