@@ -12,5 +12,6 @@ export * from './lib/model/calendar-type-month';
 export * from './lib/calendar-scheduler-header/calendar-scheduler-header.component';
 
 export * from './lib/tool-tip-renderer.directive';
+export * from './lib/custom-tool-tip/custom-tool-tip.component';
 
 

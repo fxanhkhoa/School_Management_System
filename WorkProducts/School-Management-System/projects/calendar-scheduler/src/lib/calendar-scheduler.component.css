@@ -15,3 +15,24 @@
     color: #2b40a6;
     text-shadow: 2px 2px #e3e3e3;
 }
+
+mat-card {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.mat-grid-tile {
+    border: solid 0.5px #adadad;
+    flex-grow: 1;
+    /* height: auto; */
+    overflow: auto;
+    min-height: 200px;
+    border-radius: 15px;
+}
+
+mat-expansion-panel-header {
+    height: auto !important; 
+}
+
+h1 { font-family: 'Enriqueta', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; }

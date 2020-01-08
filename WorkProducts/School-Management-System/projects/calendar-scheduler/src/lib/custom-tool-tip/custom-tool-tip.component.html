@@ -1,1 +1,9 @@
-<p>custom-tool-tip works!</p>
+<div>
+    <div class="tooltip-conatiner">
+      <ng-template #simpleText>
+        {{text}}
+      </ng-template>
+      <ng-container *ngTemplateOutlet="contentTemplate || simpleText">
+      </ng-container>
+    </div>
+</div>

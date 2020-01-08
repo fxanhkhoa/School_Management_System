@@ -40,8 +40,6 @@ import { AddStudentComponent } from './add-student/add-student.component';
 
 /* Library */
 import { CalendarSchedulerModule } from 'calendar-scheduler';
-import { CustomToolTipComponent } from './dashboard/custom-tool-tip/custom-tool-tip.component';
-import { ToolTipRendererDirective } from './dashboard/tool-tip-renderer.directive';
 
 /* define Route */
 const appRoutes: Routes = [
@@ -67,8 +65,6 @@ const appRoutes: Routes = [
     LoginComponent,
     DashboardComponent,
     AddStudentComponent,
-    CustomToolTipComponent,
-    ToolTipRendererDirective
   ],
   imports: [
     BrowserModule,
@@ -110,6 +106,5 @@ const appRoutes: Routes = [
   {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [CustomToolTipComponent]
 })
 export class AppModule { }

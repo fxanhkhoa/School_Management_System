@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'fx-custom-tool-tip',
@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomToolTipComponent implements OnInit {
 
+  @Input() text: string;
+  @Input() contentTemplate: TemplateRef<any>;
+  
   constructor() { }
 
   ngOnInit() {

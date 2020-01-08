@@ -45,6 +45,7 @@ export class AuthService {
 
   logoutUser(){
     sessionStorage.removeItem('token')
+    AuthService.role = 'NONE';
     this._router.navigateByUrl(this._router.url)
   }
 
