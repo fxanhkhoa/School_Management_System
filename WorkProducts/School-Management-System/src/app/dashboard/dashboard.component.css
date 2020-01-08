@@ -6,4 +6,39 @@
    align-items: center;
    flex-direction: column;
    /* background-image: url("../../assets/BG_Image/metal.jpg"); */
- }
+}
+
+.body-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+
+.example-card {
+  max-width: 100px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+mat-card {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.mat-grid-tile {
+  border: solid 0.5px #adadad;
+  flex-grow: 1;
+  overflow: auto;
+  border-radius: 15px;
+}
+
+mat-expansion-panel-header {
+  height: auto !important; 
+}

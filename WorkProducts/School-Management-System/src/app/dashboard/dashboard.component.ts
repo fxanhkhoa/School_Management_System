@@ -6,6 +6,12 @@ import { Router } from '@angular/router';
 /** Calendar Model */
 import { Event, CalendarTypeDay, CalendarTypeMonth } from 'calendar-scheduler';
 
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +20,20 @@ import { Event, CalendarTypeDay, CalendarTypeMonth } from 'calendar-scheduler';
 })
 export class DashboardComponent implements OnInit {
 
+  tiles: Tile[] = [
+    {text: 'One', cols: 1, rows: 1, color: 'lightblue'},
+    {text: 'Two', cols: 1, rows: 1, color: 'lightgreen'},
+    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
+    {text: 'Four', cols: 1, rows: 1, color: '#DDBDF1'},
+    {text: 'One', cols: 1, rows: 1, color: 'lightblue'},
+    {text: 'Two', cols: 1, rows: 1, color: 'lightgreen'},
+    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
+    {text: 'Four', cols: 1, rows: 1, color: '#DDBDF1'},
+    {text: 'One', cols: 1, rows: 1, color: 'lightblue'},
+    {text: 'Two', cols: 1, rows: 1, color: 'lightgreen'},
+    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
+    {text: 'Four', cols: 1, rows: 1, color: '#DDBDF1'},
+  ];
   data = []
 
   allDay = new Date(2020, 2, 0).getDate();
@@ -39,9 +59,6 @@ export class DashboardComponent implements OnInit {
         }
       )
     
-    console.log(this.allDay)
-    console.log(new Date("January 4, 2020").getDay())
-
     this._event.startdate = new Date("January 3, 2020");
     this._event.enddate = new Date("January 5, 2020");
     this._event.name = "1st event";
@@ -58,7 +75,7 @@ export class DashboardComponent implements OnInit {
     this._calendarTypeDay.events.push(this._event);
     this._calendarTypeDay.events.push(this._event);
 
-    this._calendarTypeMonth.selectedMonth = 2;
+    this._calendarTypeMonth.selectedMonth = 1;
     this._calendarTypeMonth.selectedYear = 2020;
     this._calendarTypeMonth.events.push(this._event);
     this._calendarTypeMonth.events.push(this._event);

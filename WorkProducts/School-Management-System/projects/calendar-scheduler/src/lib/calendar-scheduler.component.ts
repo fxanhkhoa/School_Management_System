@@ -31,20 +31,34 @@ export class CalendarSchedulerComponent implements OnInit {
   
   panelOpenState = false;
   Arr = Array;
-  num: Number;
-
+  firstDayOfMonth: Number;
   dayInMonth: Number;
+
+  monthStr: String[] = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+
   tempDate: Date;
 
   constructor() { }
 
   ngOnInit() {
-    this.tempDate = new Date();
-    this.tempDate.setMonth(this.calendarTypeMonth.selectedMonth);
-    this.tempDate.setFullYear(this.calendarTypeMonth.selectedYear);
-    this.tempDate.setDate(0);
-    this.dayInMonth = this.tempDate.getDate();
-    this.num = 2;
+    // Get Days in month
+    this.dayInMonth = this.calendarTypeMonth.getDaysOfMonth();
+    this.firstDayOfMonth = this.calendarTypeMonth.getFirstDayOfMonth();
+    console.log(this.calendarTypeMonth.getFirstDayOfMonth());
   }
 
   

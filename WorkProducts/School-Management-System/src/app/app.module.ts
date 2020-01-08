@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatMenuModule } from '@angular/material';
 import { MatRadioModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
 import { MatStepperModule, MatAutocompleteModule, MatSelectModule, MatGridListModule } from '@angular/material';
+import { MatCardModule, MatExpansionModule, MatTooltipModule } from '@angular/material';
 
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
@@ -39,6 +40,8 @@ import { AddStudentComponent } from './add-student/add-student.component';
 
 /* Library */
 import { CalendarSchedulerModule } from 'calendar-scheduler';
+import { CustomToolTipComponent } from './dashboard/custom-tool-tip/custom-tool-tip.component';
+import { ToolTipRendererDirective } from './dashboard/tool-tip-renderer.directive';
 
 /* define Route */
 const appRoutes: Routes = [
@@ -63,7 +66,9 @@ const appRoutes: Routes = [
     RegisterComponent,
     LoginComponent,
     DashboardComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    CustomToolTipComponent,
+    ToolTipRendererDirective
   ],
   imports: [
     BrowserModule,
@@ -91,7 +96,10 @@ const appRoutes: Routes = [
     MatAutocompleteModule,
     MatSelectModule,
     CalendarSchedulerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatTooltipModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {
@@ -101,6 +109,7 @@ const appRoutes: Routes = [
   },
   {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CustomToolTipComponent]
 })
 export class AppModule { }

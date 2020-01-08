@@ -7,9 +7,11 @@ import { MatGridListModule, MatCardModule, MatIconModule, MatExpansionModule } f
 import { MatListModule, MatDividerModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { CalendarSchedulerHeaderComponent } from './calendar-scheduler-header/calendar-scheduler-header.component';
+import { ToolTipRendererDirective } from './tool-tip-renderer.directive';
+import { CustomToolTipComponent } from './custom-tool-tip/custom-tool-tip.component';
 
 @NgModule({
-  declarations: [CalendarSchedulerComponent, CalendarSchedulerHeaderComponent],
+  declarations: [CalendarSchedulerComponent, CalendarSchedulerHeaderComponent, ToolTipRendererDirective, CustomToolTipComponent],
   imports: [
     BrowserModule,
     CommonModule,
@@ -20,6 +22,7 @@ import { CalendarSchedulerHeaderComponent } from './calendar-scheduler-header/ca
     MatListModule,
     MatDividerModule
   ],
-  exports: [CalendarSchedulerComponent, CalendarSchedulerHeaderComponent]
+  exports: [CalendarSchedulerComponent, CalendarSchedulerHeaderComponent],
+  entryComponents: [CustomToolTipComponent]
 })
 export class CalendarSchedulerModule { }

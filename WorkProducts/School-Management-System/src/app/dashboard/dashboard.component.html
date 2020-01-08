@@ -1,12 +1,80 @@
-<div class="container">
-   <fx-CalendarScheduler
-      [type]="_calendarType"
-      [calendarTypeDay]='_calendarTypeDay'
-      [calendarTypeMonth]='_calendarTypeMonth'
-   >
-      <fx-calendar-scheduler-header *ngIf="_calendarType == 'CalendarTypeDay'">
-         {{_calendarTypeDay.selectedDay | date}}
-      </fx-calendar-scheduler-header>
-   </fx-CalendarScheduler>
+<div id="component-body">
+   <div class="container">
+      <fx-CalendarScheduler
+         [type]="_calendarType"
+         [calendarTypeDay]='_calendarTypeDay'
+         [calendarTypeMonth]='_calendarTypeMonth'
+      >
+         <fx-calendar-scheduler-header *ngIf="_calendarType == 'CalendarTypeDay'">
+            {{_calendarTypeDay.selectedDay | date}}
+         </fx-calendar-scheduler-header>
+      </fx-CalendarScheduler>
+   </div>
 </div>
 
+<mat-grid-list cols="7" rowHeight="1:2">
+   <mat-grid-tile
+       *ngFor="let tile of tiles"
+       [colspan]="tile.cols"
+       [rowspan]="tile.rows"
+   >
+       <mat-card>
+         <mat-card-header>
+           <div mat-card-avatar><button mat-mini-fab color="accent">1</button></div>
+         </mat-card-header>
+         <mat-card-content>
+            <mat-accordion>
+               <mat-expansion-panel>
+                  <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                     <mat-panel-title>
+                       <strong>Expand events</strong>
+                     </mat-panel-title>
+                     <mat-panel-description>
+                       <!-- Empty -->
+                      </mat-panel-description>
+                   </mat-expansion-panel-header>
+                   <!-- All events of day -->
+                   <mat-list>
+                     <mat-list-item
+                        customToolTip [contentTemplate]="template"
+                     >
+                     Item 1
+                     </mat-list-item>
+                     <mat-divider></mat-divider>
+                     <mat-list-item>Item 2</mat-list-item>
+                     <mat-divider></mat-divider>
+                   </mat-list>>
+               </mat-expansion-panel>
+            </mat-accordion>
+         </mat-card-content>
+         <mat-card-actions>
+            <button mat-button>Detail</button>
+         </mat-card-actions>
+       </mat-card>
+   </mat-grid-tile>
+</mat-grid-list>
+
+<button mat-raised-button        
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        customToolTip [contentTemplate]="template">
+  Action
+</button>
+
+<ng-template #template>
+   <mat-list style="background-color:rgba(191, 191, 191, 0.6);">
+      <h3 mat-subheader style="color: brown;">TIME</h3>
+      <mat-list-item>
+        <mat-icon mat-list-icon>access_time</mat-icon>
+        <h4 mat-line>Schedule</h4>
+        <h4 mat-line>
+          Start Time: <strong>AAAA</strong>
+        </h4>
+        <h4 mat-line>
+          End Time: <strong>AAAA</strong>
+        </h4>
+        <h4 mat-line>
+          Location: <strong>AAAA</strong>
+        </h4>
+      </mat-list-item>
+    </mat-list>
+</ng-template>
