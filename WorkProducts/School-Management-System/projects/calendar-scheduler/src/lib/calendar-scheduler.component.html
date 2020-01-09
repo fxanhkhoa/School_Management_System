@@ -113,22 +113,45 @@
     <h1>{{calendarTypeMonth.selectedMonth}}/{{calendarTypeMonth.selectedYear}}</h1>
   </div>
   <div style="padding-left: 7px !important; padding-right: 5px !important;">
-    <mat-grid-list cols="7" rowHeight="125px" >
+    <mat-grid-list cols="7" rowHeight="75px" >
+
+      <!-- Fill blank days -->
       <mat-grid-tile
-        *ngFor="let tile of tiles"
+        *ngFor="let item of arrayOne(firstDayOfMonth); let i = index;"
+        [colspan]="1"
+        [rowspan]="2"
+      >
+      </mat-grid-tile>
+
+      <!-- Fill Days of month -->
+      <mat-grid-tile
+        *ngFor="let item of arrayOne(dayInMonth); let i = index; "
         [colspan]="1"
         [rowspan]="2"
       >
         <mat-card>
           <mat-card-header>
-            <div mat-card-avatar><button mat-mini-fab color="accent">1</button></div>
+            <span>{{getAllEventInDay(i + 1)}}</span>
+            <div mat-card-avatar matTooltip="Click to view Detail">
+              <button 
+                [matBadge]="numberOfEventInDay" matBadgePosition="before" matBadgeColor="warn" 
+                [matBadgeHidden]="numberOfEventInDay <= 0"
+                (click)="buttonDayClick(i + 1)" mat-mini-fab [color]="(i+1) != getDateOfToday() ? 'accent' : 'primary'"
+              >
+                {{i + 1}}
+              </button>
+            </div>
           </mat-card-header>
           <mat-card-content>
               <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
                       <mat-panel-title>
-                        <strong>Expand events</strong>
+                        <strong>
+                          <span> 
+                            Expand events
+                          </span>
+                        </strong>
                       </mat-panel-title>
                       <mat-panel-description>
                         <!-- Empty -->
@@ -136,21 +159,21 @@
                     </mat-expansion-panel-header>
                     <!-- All events of day -->
                     <mat-list>
-                      <mat-list-item
-                        fxcustomToolTip [contentTemplate]="template"
-                      >
-                      Item 1
-                      </mat-list-item>
-                      <mat-divider></mat-divider>
-                      <mat-list-item>Item 2</mat-list-item>
-                      <mat-divider></mat-divider>
-                    </mat-list>>
+                      <div *ngFor="let event of eventsInDay">
+                        <mat-list-item
+                          fxcustomToolTip [contentTemplate]="template"
+                        >
+                        {{event.name}}
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                      </div>
+                    </mat-list>
                 </mat-expansion-panel>
               </mat-accordion>
           </mat-card-content>
-          <mat-card-actions>
-              <button mat-button>Detail</button>
-          </mat-card-actions>
+          <!-- <mat-card-actions>
+              <button mat-stroked-button>View Detail</button>
+          </mat-card-actions> -->
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
@@ -177,3 +200,5 @@
      </mat-list-item>
    </mat-list>
 </ng-template>
+
+                <!-- (click)="getAllEventInDay(i + 1)"  if want to reduce cost of process-->

@@ -26,9 +26,18 @@ mat-card {
     border: solid 0.5px #adadad;
     flex-grow: 1;
     /* height: auto; */
-    overflow: auto;
-    min-height: 200px;
+    overflow: scroll;
+    overflow-x: hidden;
     border-radius: 15px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }
 
 mat-expansion-panel-header {

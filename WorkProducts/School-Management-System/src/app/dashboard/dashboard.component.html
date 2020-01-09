@@ -3,6 +3,7 @@
       [type]="_calendarType"
       [calendarTypeDay]='_calendarTypeDay'
       [calendarTypeMonth]='_calendarTypeMonth'
+      (CalendarDateClick) = "DayDetailView($event)"
    >
       <fx-calendar-scheduler-header *ngIf="_calendarType == 'CalendarTypeDay'">
          {{_calendarTypeDay.selectedDay | date}}
