@@ -79,6 +79,9 @@ export class DashboardComponent implements OnInit {
     this._calendarTypeMonth.selectedYear = 2020;
     this._calendarTypeMonth.events.push(this._event);
     this._calendarTypeMonth.events.push(this._event);
+    this._calendarTypeMonth.events.push(this._event);
+    this._calendarTypeMonth.events.push(this._event);
+    this._calendarTypeMonth.events.push(this._event);
 
     // this._eventService.createEvent(this._event)
     //     .subscribe(

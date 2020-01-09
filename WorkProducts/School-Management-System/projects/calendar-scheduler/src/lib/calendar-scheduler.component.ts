@@ -55,8 +55,14 @@ export class CalendarSchedulerComponent implements OnInit {
   // Variable for events in day used in function getAllEventInDay
   eventsInDay: Event[] = [];
   numberOfEventInDay: number = 0;
+  numberOfEventInDayInMonth: number[] = [];
+  eventsInDayInMonth: Event[][] = [];
+  // Variable for dataloaded
+  dataLoaded: Boolean = false;
 
-  constructor() { }
+  constructor() { 
+
+  }
 
   ngOnInit() {
     // Get Days in month
@@ -65,6 +71,23 @@ export class CalendarSchedulerComponent implements OnInit {
     this.firstDayOfMonth = this.calendarTypeMonth.getFirstDayOfMonth();
     // Get Today
     this.today = new Date();
+    // Initialize all zero to numberOfEventInDayInMonth
+    this.fillAllZero();
+    // Init all event for days
+    this.getAllEventInMonth();
+    console.log(this.eventsInDayInMonth);
+    console.log(this.numberOfEventInDayInMonth);
+    // Set Loaded
+    this.dataLoaded = true;
+  }
+
+  fillAllZero(){
+    let numbers = Array(this.dayInMonth).fill(null).map((x, i) => i + 1);
+    console.log('here2', numbers);
+    for (let i of numbers){
+      this.numberOfEventInDayInMonth[+i] = 0;
+      this.eventsInDayInMonth[+i] = [];
+    }
   }
 
   arrayOne(n: number): any[] {
@@ -86,7 +109,7 @@ export class CalendarSchedulerComponent implements OnInit {
 
   getAllEventInDay(day){
     let tempDate = new Date();
-    console.log(day);
+    
     tempDate.setDate(day);
     tempDate.setMonth(this.calendarTypeMonth.selectedMonth - 1); // Because month from 0 -> 11
     tempDate.setFullYear(this.calendarTypeMonth.selectedYear);
@@ -104,7 +127,30 @@ export class CalendarSchedulerComponent implements OnInit {
       }
     });
 
-    // Set number of event in day
+    // Set number of events in day
     this.numberOfEventInDay = this.eventsInDay.length;
+  }
+
+  getAllEventInMonth(){
+    let numbers = Array(this.dayInMonth).fill(null).map((x, i) => i + 1);
+    for (let i of numbers){
+      let tempDate = new Date();
+      tempDate.setDate(+i);
+      tempDate.setMonth(this.calendarTypeMonth.selectedMonth - 1); // Because month from 0 -> 11
+      tempDate.setFullYear(this.calendarTypeMonth.selectedYear);
+      this.calendarTypeMonth.events.forEach(event =>{
+        // Check if this 'day' contain this event
+        if (event.containDay(tempDate) == true){
+          // add to eventsInDay array
+          this.eventsInDayInMonth[+i].push(event);
+          if (event.enddate.getDate() <= +i){
+            this.calendarTypeMonth.events.filter(item => item !== event);
+          }
+        }
+      });
+
+      // Set number of events for this day
+      this.numberOfEventInDayInMonth[+i] = this.eventsInDayInMonth[+i].length;
+    }
   }
 }

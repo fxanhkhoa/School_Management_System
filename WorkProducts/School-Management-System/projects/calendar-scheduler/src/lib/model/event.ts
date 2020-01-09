@@ -19,9 +19,12 @@ export class Event {
      */
     containDay(inputday){
         // Check Day first
-        // console.log(this.startdate.getDate(), inputday.getDate(), this.enddate.getDate(),
-        // ((this.startdate.getDate() <= inputday.getDate()) 
-        // && (inputday.getDate() <= this.enddate.getDate())));
+        if (inputday.getDate() == 3){
+            console.log(this.startdate.getDate(), inputday.getDate(), this.enddate.getDate(),
+            ((this.startdate.getDate() <= inputday.getDate()) 
+            && (inputday.getDate() <= this.enddate.getDate())));
+        }
+        
         if ((this.startdate.getDate() <= inputday.getDate()) 
             && (inputday.getDate() <= this.enddate.getDate())){
             return true;
