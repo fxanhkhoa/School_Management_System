@@ -48,7 +48,8 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side">
+  <!-- mode="side" to mat-sidenav for other mode -->
+    <mat-sidenav #sidenav>
       <mat-nav-list>
         
         <button mat-button href="#item-student" class="list-group-item" data-toggle="collapse">
@@ -57,12 +58,12 @@
           <mat-icon>expand_more</mat-icon>
         </button>
         <div class="list-group collapse" id="item-student">
-          <a *ngIf="_authService.isAdmin()" href="#item-student-book" class="list-group-item" data-toggle="collapse">
-            <span>Book test</span>
+          <a *ngIf="(_authService.isAdmin()) || (_authService.isStudent())" [routerLink]="'/student-schedule'" class="list-group-item" data-toggle="collapse">
+            <span>Schedule</span>
             <!-- <span>{{_authService.isAdmin()}}</span> -->
           </a>
           <a *ngIf="_authService.isAdmin()" [routerLink]="'/add-student'" class="list-group-item" data-toggle="collapse">
-            <span>Add Student</span>
+            <span>Classes' Progress</span>
           </a>
         </div>
 

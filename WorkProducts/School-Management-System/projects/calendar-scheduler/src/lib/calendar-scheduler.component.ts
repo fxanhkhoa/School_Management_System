@@ -59,6 +59,9 @@ export class CalendarSchedulerComponent implements OnInit {
   eventsInDayInMonth: Event[][] = [];
   // Variable for dataloaded
   dataLoaded: Boolean = false;
+  // Variable used for ng-template
+  currentDay:number = 0;
+  currentEventIndexInDay: number = 0;
 
   constructor() { 
 
@@ -75,15 +78,14 @@ export class CalendarSchedulerComponent implements OnInit {
     this.fillAllZero();
     // Init all event for days
     this.getAllEventInMonth();
-    console.log(this.eventsInDayInMonth);
-    console.log(this.numberOfEventInDayInMonth);
+    // console.log(this.eventsInDayInMonth);
+    // console.log(this.numberOfEventInDayInMonth);
     // Set Loaded
     this.dataLoaded = true;
   }
 
   fillAllZero(){
     let numbers = Array(this.dayInMonth).fill(null).map((x, i) => i + 1);
-    console.log('here2', numbers);
     for (let i of numbers){
       this.numberOfEventInDayInMonth[+i] = 0;
       this.eventsInDayInMonth[+i] = [];
@@ -152,5 +154,11 @@ export class CalendarSchedulerComponent implements OnInit {
       // Set number of events for this day
       this.numberOfEventInDayInMonth[+i] = this.eventsInDayInMonth[+i].length;
     }
+  }
+
+  setCurrentEvent(currentDay, currentEventIndexInDay){
+    this.currentDay = currentDay;
+    this.currentEventIndexInDay = currentEventIndexInDay;
+    // console.log(this.currentEvent);
   }
 }

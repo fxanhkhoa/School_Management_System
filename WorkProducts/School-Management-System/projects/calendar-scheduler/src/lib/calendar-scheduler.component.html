@@ -89,18 +89,6 @@
             </mat-list>
             
           </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true"
-                        (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Self aware panel
-              </mat-panel-title>
-              <mat-panel-description>
-                Currently I am {{panelOpenState ? 'open' : 'closed'}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
         </mat-accordion>
       </mat-card-content>
     </mat-card>
@@ -158,9 +146,12 @@
                       </mat-expansion-panel-header>
                       <!-- All events of day -->
                       <mat-list>
-                        <div *ngFor="let event of eventsInDayInMonth[i+1]">
+                        <div *ngFor="let event of eventsInDayInMonth[i+1]; let j = index"
+                        >
                           <mat-list-item
-                            fxcustomToolTip [contentTemplate]="template"
+                            fxcustomToolTip
+                            [contentTemplate]="template"
+                            (mouseenter) ="setCurrentEvent(i+1, j)"
                           >
                           {{event.name}}
                           </mat-list-item>
@@ -184,22 +175,41 @@
 
 <!-- Template -->
 <ng-template #template>
-  <mat-list style="background-color:rgba(191, 191, 191, 0.6);">
-     <h3 mat-subheader style="color: brown;">TIME</h3>
-     <mat-list-item>
-       <mat-icon mat-list-icon>access_time</mat-icon>
-       <h4 mat-line>Schedule</h4>
-       <h4 mat-line>
-         Start Time: <strong>AAAA</strong>
-       </h4>
-       <h4 mat-line>
-         End Time: <strong>AAAA</strong>
-       </h4>
-       <h4 mat-line>
-         Location: <strong>AAAA</strong>
-       </h4>
-     </mat-list-item>
-   </mat-list>
+  <div style="background-color:rgba(191, 191, 191, 0.85);">
+    <mat-list >
+      <!-- Body Content -->
+        <!-- Time -->
+       <h3 style="color: brown;">DETAIL</h3>
+       <mat-list-item>
+         <mat-icon mat-list-icon>access_time</mat-icon>
+         <h4 mat-line>Schedule</h4>
+         <h4 mat-line>
+           Start Time: <strong>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].startdate | date:'medium'}}</strong>
+         </h4>
+         <h4 mat-line>
+           End Time: <strong>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].enddate | date:'medium'}}</strong>
+         </h4>
+         <h4 mat-line>
+           Location: <strong>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].location}}</strong>
+         </h4>
+       </mat-list-item>
+     </mat-list>
+
+     <mat-divider></mat-divider>
+
+     <!-- Detail -->
+     <mat-list>
+      <h3 mat-subheader>Detail</h3>
+      <mat-list-item>
+        <h4 mat-line><b class="h4-list-item">Name: </b> <i>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].name}}</i></h4>
+        <h4 mat-line><b class="h4-list-item">Content: </b> <i>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].content}}</i></h4>
+        <h4 mat-line><b class="h4-list-item">Note: </b> <i>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].note}}</i></h4>
+        <h4 mat-line><b class="h4-list-item">Progress: </b> <i>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].progress}}</i></h4>
+        <h4 mat-line><b class="h4-list-item">Priority: </b> <i>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].priority}}</i></h4>
+        <h4 mat-line><b class="h4-list-item">Type: </b> <i>{{eventsInDayInMonth[currentDay][currentEventIndexInDay].type}}</i></h4>
+      </mat-list-item>
+    </mat-list>
+  </div>
 </ng-template>
 
                 <!-- (click)="getAllEventInDay(i + 1)"  if want to reduce cost of process-->

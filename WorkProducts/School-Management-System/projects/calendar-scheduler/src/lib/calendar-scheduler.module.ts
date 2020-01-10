@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { FormsModule } from '@angular/forms';
+
 import { CalendarSchedulerComponent } from './calendar-scheduler.component';
 
 import { MatGridListModule, MatCardModule, MatIconModule, MatExpansionModule } from '@angular/material';
@@ -24,7 +26,8 @@ import { CustomToolTipComponent } from './custom-tool-tip/custom-tool-tip.compon
     MatDividerModule,
     MatButtonModule,
     MatTooltipModule,
-    MatBadgeModule
+    MatBadgeModule,
+    FormsModule
   ],
   exports: [CalendarSchedulerComponent, CalendarSchedulerHeaderComponent],
   entryComponents: [CustomToolTipComponent]

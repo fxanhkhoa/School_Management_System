@@ -40,6 +40,8 @@ import { AddStudentComponent } from './add-student/add-student.component';
 
 /* Library */
 import { CalendarSchedulerModule } from 'calendar-scheduler';
+/** Student Schedule Component */
+import { StudentScheduleComponent } from './student-schedule/student-schedule.component';
 
 /* define Route */
 const appRoutes: Routes = [
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
   {
     path: '',
     redirectTo: '/home',
@@ -65,6 +68,7 @@ const appRoutes: Routes = [
     LoginComponent,
     DashboardComponent,
     AddStudentComponent,
+    StudentScheduleComponent,
   ],
   imports: [
     BrowserModule,

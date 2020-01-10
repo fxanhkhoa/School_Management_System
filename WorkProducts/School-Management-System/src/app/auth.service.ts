@@ -31,8 +31,20 @@ export class AuthService {
     AuthService.role = role
   }
 
+  getRole(){
+    return AuthService.role;
+  }
+
   isAdmin(){
     if (AuthService.role == "admin"){
+      return true
+    } else{
+      return false
+    }
+  }
+
+  isStudent(){
+    if (AuthService.role == "student"){
       return true
     } else{
       return false

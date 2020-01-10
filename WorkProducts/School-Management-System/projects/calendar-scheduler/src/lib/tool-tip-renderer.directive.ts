@@ -2,6 +2,7 @@ import { Directive, ElementRef, Input, TemplateRef, HostListener, ComponentRef }
 import { Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay';
 import { CustomToolTipComponent } from './custom-tool-tip/custom-tool-tip.component';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { Event } from './model/event';
 
 @Directive({
   selector: '[fxcustomToolTip]'
@@ -43,7 +44,7 @@ export class ToolTipRendererDirective {
       const tooltipRef: ComponentRef<CustomToolTipComponent> = this._overlayRef.attach(new ComponentPortal(CustomToolTipComponent));
       tooltipRef.instance.text = this.text;
       tooltipRef.instance.contentTemplate = this.contentTemplate;
-    } 
+    }
   }
 
   @HostListener('mouseleave')
