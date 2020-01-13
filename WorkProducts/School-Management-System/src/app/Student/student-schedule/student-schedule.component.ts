@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-student-schedule',
@@ -12,6 +12,11 @@ export class StudentScheduleComponent implements OnInit {
   constructor(private _router: Router,
               private _auth: AuthService) { }
 
+  /**
+   * TODO: Check role before use
+   * * Algorithm:
+   * * If role is not admin or student then back to login
+   */
   ngOnInit() {
     
     if ((!this._auth.isAdmin()) && (!this._auth.isStudent())){

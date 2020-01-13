@@ -1,0 +1,22 @@
+<div id="body-container">
+    
+    <mat-button-toggle-group #group="matButtonToggleGroup">
+        <mat-button-toggle value="monthview" aria-label="month view" matTooltip="view in month">
+            <mat-icon>date_range</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="dayview" aria-label="day view" matTooltip="view in day">
+            <mat-icon>event</mat-icon>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- <fx-CalendarScheduler
+       [type]="_calendarType"
+       [calendarTypeDay]='_calendarTypeDay'
+       [calendarTypeMonth]='_calendarTypeMonth'
+       (CalendarDateClick) = "DayDetailView($event)"
+    >
+       <fx-calendar-scheduler-header *ngIf="_calendarType == 'CalendarTypeDay'">
+          {{_calendarTypeDay.selectedDay | date}}
+       </fx-calendar-scheduler-header>
+    </fx-CalendarScheduler> -->
+ </div>

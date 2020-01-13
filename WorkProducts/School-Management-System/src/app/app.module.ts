@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatMenuModule } from '@angular/material';
 import { MatRadioModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
 import { MatStepperModule, MatAutocompleteModule, MatSelectModule, MatGridListModule } from '@angular/material';
-import { MatCardModule, MatExpansionModule, MatTooltipModule } from '@angular/material';
+import { MatCardModule, MatExpansionModule, MatTooltipModule, MatButtonToggleModule } from '@angular/material';
 
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
@@ -41,7 +41,8 @@ import { AddStudentComponent } from './add-student/add-student.component';
 /* Library */
 import { CalendarSchedulerModule } from 'calendar-scheduler';
 /** Student Schedule Component */
-import { StudentScheduleComponent } from './student-schedule/student-schedule.component';
+import { StudentScheduleComponent } from './Student/student-schedule/student-schedule.component';
+import { CreateEventComponent } from './create-event/create-event.component';
 
 /* define Route */
 const appRoutes: Routes = [
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
+  { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
   {
     path: '',
     redirectTo: '/home',
@@ -69,6 +71,7 @@ const appRoutes: Routes = [
     DashboardComponent,
     AddStudentComponent,
     StudentScheduleComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +102,8 @@ const appRoutes: Routes = [
     MatGridListModule,
     MatCardModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonToggleModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {

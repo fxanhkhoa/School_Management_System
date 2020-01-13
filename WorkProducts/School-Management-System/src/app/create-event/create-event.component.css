@@ -1,0 +1,13 @@
+.body-container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: top;
+  align-items: center;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
