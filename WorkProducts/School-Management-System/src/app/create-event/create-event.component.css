@@ -11,3 +11,19 @@
   width: 0px;  /* Remove scrollbar space */
   background: transparent;  /* Optional: just make scrollbar invisible */
 }
+
+.high-priority{
+  color: #c20e02;
+}
+
+.low-priority{
+  color: #10bd00;
+}
+
+.normal-priority{
+  color: #2b40a6;
+}
+
+.example-chip-list {
+  width: 100%;
+}

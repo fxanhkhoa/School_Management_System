@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher, MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { Observable } from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import { EventService } from '../event.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -18,9 +22,35 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class CreateEventComponent implements OnInit {
 
-  constructor(public _formBuilder: FormBuilder) { }
+  allContact = [];
+
+  involveUsers: any[] = [];
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  allUsers: any[] = [];
+  filteredInvoleUsers: Observable<string[]>;
+
+  @ViewChild('involverInput', {static: false}) involverInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+
+  constructor(public _formBuilder: FormBuilder,
+              private _event: EventService) {
+    this.filteredInvoleUsers = this.createEventGroup.get('involver').valueChanges.pipe(
+      startWith(null),
+      map((involverInput: string | null) => involverInput ? this._filter(involverInput) : this.allUsers.slice()));
+  }
 
   ngOnInit() {
+    this._event.getAllUser()
+      .subscribe(
+        res =>{
+          // console.log(res)
+          res.forEach(element => {
+            this.allContact.push(element);
+            this.allUsers.push(element);
+          });
+        },
+        err => console.log(err)
+      )
   }
 
   priorityValue: String[] = ['Low', "Normal", "High"];
@@ -45,8 +75,71 @@ export class CreateEventComponent implements OnInit {
     note: new FormControl('',[]),
     progress: new FormControl('On Going',[]),
     priority: new FormControl('Low',[]), // ! Only Low, Normal, High
-    type: new FormControl('Class Schedule',[]),
-    location: new FormControl('', [])
+    type: new FormControl('',[]),
+    location: new FormControl('', [
+      Validators.required
+    ]),
+    involver: new FormControl('',[])
   });
 
+  CreateEvent(){
+    // console.log(this.involveUsers);
+    this.createEventGroup.get('involver').setValue(this.involveUsers);
+    // console.log(this.createEventGroup.value);
+    this._event.createEvent(this.createEventGroup.value)
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => console.log(err)
+      )
+  }
+
+  remove(oneInvolever: string): void {
+    const index = this.involveUsers.indexOf(oneInvolever);
+
+    if (index >= 0) {
+      this.involveUsers.splice(index, 1);
+    }
+  }
+
+  add(event: MatChipInputEvent): void {
+    // Add element only when MatAutocomplete is not open
+    // To make sure this does not conflict with OptionSelected Event
+    if (!this.matAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
+
+      // Add our element
+      if ((value || '').trim()) {
+        this.involveUsers.push(value);
+      }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+      this.createEventGroup.get('involver').setValue(null);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.involveUsers.push(event.option.value);
+    this.involverInput.nativeElement.value = '';
+    this.createEventGroup.get('involver').setValue(null);
+  }
+
+  private _filter(value: any): string[] {
+    var filterValue = null;
+    try {
+      filterValue = value.toLowerCase();
+    } catch (error) {
+    }
+    return this.allUsers.filter(involverInput => involverInput.fullname.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  getLowerCase(value: any){
+    
+  }
 }

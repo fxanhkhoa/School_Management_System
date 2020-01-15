@@ -11,4 +11,4 @@ const studentSchema = new Schema({
     events: [String]
 })
 
-module.exports = mongoose.model('student', eventSchema, 'students')
+module.exports = mongoose.model('student', studentSchema, 'students')

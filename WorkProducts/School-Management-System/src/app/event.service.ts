@@ -8,6 +8,7 @@ export class EventService {
 
   private _dashboardUrl = "http://localhost:3000/api/dashboard"
   private _createEventUrl = "http://localhost:3000/api/create-event"
+  private _getUsers = "http://localhost:3000/api/get-users"
 
   constructor(private http: HttpClient) { }
 
@@ -18,4 +19,9 @@ export class EventService {
   createEvent(event){
     return this.http.post<any>(this._createEventUrl, event);
   }
+
+  getAllUser(){
+    return this.http.get<any>(this._getUsers)
+  }
+
 }
