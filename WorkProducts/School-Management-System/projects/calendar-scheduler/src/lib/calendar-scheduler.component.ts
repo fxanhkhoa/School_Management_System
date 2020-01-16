@@ -4,13 +4,6 @@ import { Event } from './model/event';
 import { CalendarTypeDay } from './model/calendar-type-day';
 import { CalendarTypeMonth } from './model/calendar-type-month';
 
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
-
 @Component({
   selector: 'fx-CalendarScheduler',
   templateUrl: 'calendar-scheduler.component.html',
@@ -18,17 +11,25 @@ export interface Tile {
 })
 export class CalendarSchedulerComponent implements OnInit {
 
-  tiles: Tile[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-  ];
-
+  /**
+   * * All input for binding
+   * ! Take care when change the name,
+   * ! it may conflict to other parts
+   */
   @Input() type: String;
   @Input() calendarTypeDay: CalendarTypeDay;
   @Input() calendarTypeMonth: CalendarTypeMonth;
 
+  /**
+   * * All output for binding
+   * ! Take care when change the name,
+   * ! it may conflict to other parts
+   */
   @Output('CalendarDateClick') dayClick: EventEmitter<Date> = new EventEmitter<Date>();
   
+  /**
+   * * All Global variables
+   */
   panelOpenState = false;
   Arr = Array;
   firstDayOfMonth: number;
@@ -67,6 +68,9 @@ export class CalendarSchedulerComponent implements OnInit {
 
   }
 
+  /**
+   * TODO: Initialize global variables
+   */
   ngOnInit() {
     // Get Days in month
     this.dayInMonth = this.calendarTypeMonth.getDaysOfMonth();
@@ -78,12 +82,17 @@ export class CalendarSchedulerComponent implements OnInit {
     this.fillAllZero();
     // Init all event for days
     this.getAllEventInMonth();
+    // ! Debug part
     // console.log(this.eventsInDayInMonth);
     // console.log(this.numberOfEventInDayInMonth);
     // Set Loaded
     this.dataLoaded = true;
   }
 
+  /**
+   * TODO: Fill All Zero for number of event of day in month
+   * TODO: and initialize empty array for events in day in month array
+   */
   fillAllZero(){
     let numbers = Array(this.dayInMonth).fill(null).map((x, i) => i + 1);
     for (let i of numbers){
@@ -92,28 +101,43 @@ export class CalendarSchedulerComponent implements OnInit {
     }
   }
 
+  /**
+   * TODO: create an array from 0->n
+   * @param n: count of array
+   */
   arrayOne(n: number): any[] {
     return Array(n);
   }
 
+  /**
+   * TODO: Get today (Day, month, year, hh, mm, ss)
+   */
   getDateOfToday(){
     return this.today.getDate();
   }
 
+  /**
+   * TODO: Get date of day clicked and emit to parent element
+   * @param day: Input day need to emit
+   */
   buttonDayClick(day){
     let tempDate = new Date();
     tempDate.setDate(day);
-    tempDate.setMonth(this.calendarTypeMonth.selectedMonth - 1); // Because month from 0 -> 11
+    tempDate.setMonth(this.calendarTypeMonth.selectedMonth - 1); // * Because month from 0 -> 11
     tempDate.setFullYear(this.calendarTypeMonth.selectedYear);
 
     this.dayClick.emit(tempDate);
   }
 
+  /**
+   * TODO: Get all events in day and push to array
+   * @param day: Input day need to get events
+   */
   getAllEventInDay(day){
     let tempDate = new Date();
     
     tempDate.setDate(day);
-    tempDate.setMonth(this.calendarTypeMonth.selectedMonth - 1); // Because month from 0 -> 11
+    tempDate.setMonth(this.calendarTypeMonth.selectedMonth - 1); // * Because month from 0 -> 11
     tempDate.setFullYear(this.calendarTypeMonth.selectedYear);
     
     // clear event
@@ -133,7 +157,11 @@ export class CalendarSchedulerComponent implements OnInit {
     this.numberOfEventInDay = this.eventsInDay.length;
   }
 
+  /**
+   * TODO: Get all events in month and push to 2D array 
+   */
   getAllEventInMonth(){
+    // * Fill numbers with 1-> number of day in month
     let numbers = Array(this.dayInMonth).fill(null).map((x, i) => i + 1);
     for (let i of numbers){
       let tempDate = new Date();
@@ -156,6 +184,11 @@ export class CalendarSchedulerComponent implements OnInit {
     }
   }
 
+  /**
+   * TODO: Set current day to make binding with template 
+   * @param currentDay: Day that mouse is pointing to
+   * @param currentEventIndexInDay: Use for array 2D
+   */
   setCurrentEvent(currentDay, currentEventIndexInDay){
     this.currentDay = currentDay;
     this.currentEventIndexInDay = currentEventIndexInDay;

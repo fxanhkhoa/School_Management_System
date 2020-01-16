@@ -1,4 +1,5 @@
 export class Event {
+    evendID: String = null;
     startdate: Date = null;
     enddate: Date = null;
     name: String = null;

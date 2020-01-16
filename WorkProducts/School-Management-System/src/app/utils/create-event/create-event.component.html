@@ -1,0 +1,266 @@
+<div class="body-container">
+    <div [formGroup]="createEventGroup" class="container">
+        <mat-horizontal-stepper [linear]="false" #stepper>
+
+            <!-- Time Step -->
+            <mat-step class="stepper">
+                <ng-template matStepLabel>Time Information</ng-template>
+                <div class="row stepper-element">
+                    <div class="col">
+                        <mat-form-field>
+                            <input 
+                                matInput 
+                                [matDatepicker]="picker" 
+                                placeholder="Start date"
+                                [errorStateMatcher]="matcher"
+                                id="StartDate"
+                                [formControl] = "createEventGroup.get('startDate')"
+                                required
+                            >
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="createEventGroup.get('startDate')?.hasError('required')">
+                                Start Date is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field>
+                            <input 
+                                matInput 
+                                type="time" 
+                                placeholder="Start time"
+                                [errorStateMatcher]="matcher"
+                                id="startTime"
+                                [formControl] = "createEventGroup.get('startTime')"
+                                formControlName="startTime"
+                                required
+                            >
+                            <mat-error *ngIf="createEventGroup.get('startTime')?.hasError('required')">
+                                End Time is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row stepper-element">
+                    <div class="col">
+                        <mat-form-field>
+                            <input 
+                                matInput 
+                                [matDatepicker]="picker2"
+                                placeholder="End date"
+                                [errorStateMatcher]="matcher"
+                                id="endDate"
+                                [formControl] = "createEventGroup.get('endDate')"
+                                formControlName = "endDate"
+                                required
+                            >
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error *ngIf="createEventGroup.get('endDate')?.hasError('required')">
+                                End Date is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field>
+                            <input 
+                                matInput 
+                                type="time" 
+                                placeholder="end time"
+                                [errorStateMatcher]="matcher"
+                                id="endTime"
+                                [formControl] = "createEventGroup.get('endTime')"
+                                formControlName="endTime"
+                                required
+                            >
+                            <mat-error *ngIf="createEventGroup.get('endTime')?.hasError('required')">
+                                End Time is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="stepper-element">
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+
+            <!-- Other Info step -->
+            <mat-step>
+                <ng-template matStepLabel>Other Information</ng-template>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="Input event name"
+                                id="name"
+                                [formControl] = "createEventGroup.get('name')"
+                                formControlName="name"
+                                required
+                            >
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Content -->
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field style="width: 700px;">
+                            <mat-label>Content</mat-label>
+                            <textarea
+                                matInput
+                                cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="30"
+                                id = "content"
+                                [formControl] = "createEventGroup.get('content')"
+                                formControlName = "content"
+                            >
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Note -->
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field style="width: 700px;">
+                            <mat-label>Note</mat-label>
+                            <textarea
+                                matInput
+                                cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="30"
+                                id = "note"
+                                [formControl] = "createEventGroup.get('note')"
+                                formControlName = "note"
+                            >
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- Progress -->
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field style="width: 700px;">
+                            <mat-label>Progress</mat-label>
+                            <textarea
+                                matInput
+                                cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="30"
+                                id = "progress"
+                                [formControl] = "createEventGroup.get('progress')"
+                                formControlName = "progress"
+                            >
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Priority -->
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label>Priority</mat-label>
+                            <mat-select
+                                id = "priority"
+                                name = "priority"
+                                [errorStateMatcher]="matcher" 
+                                [formControl] = "createEventGroup.get('priority')"
+                                placeholder="Pick a priority"
+                                formControlName="priority"
+                                ngDefaultControl
+                                required
+                            >
+                                <mat-option *ngFor="let priority of priorityValue" [value]="priority"
+                                    [ngClass]="{'low-priority': priority == 'Low',
+                                                'normal-priority': priority == 'Normal',
+                                                'high-priority': priority == 'High'}"
+                                >
+                                    {{priority}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="createEventGroup.get('priority')?.hasError('required')">
+                                Priority is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- Type -->
+                    <div class="col">
+                        <mat-form-field>
+                            <input
+                                matInput
+                                id = "type"
+                                [errorStateMatcher]="matcher" 
+                                [formControl] = "createEventGroup.get('type')"
+                                placeholder="Input Type"
+                                formControlName = "type"
+                                required
+                            >
+                            <mat-error *ngIf="createEventGroup.get('type')?.hasError('required')">
+                                Type is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- Location -->
+                    <div class="col">
+                        <mat-form-field>
+                            <input
+                                matInput
+                                id = "location"
+                                [errorStateMatcher]="matcher" 
+                                [formControl] = "createEventGroup.get('location')"
+                                placeholder="Input Location"
+                                formControlName = "location"
+                                required
+                            >
+                            <mat-error *ngIf="createEventGroup.get('location')?.hasError('required')">
+                                Location is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col'>
+                        <mat-form-field class="example-chip-list">
+                            <mat-chip-list #chipList aria-label="involveUsers selection">
+                                <mat-chip
+                                    *ngFor="let oneInvolever of involveUsers"
+                                    [selectable]="true"
+                                    [removable]="true"
+                                    (removed)="remove(oneInvolever)">
+                                >
+                                {{oneInvolever.fullname}}
+                                <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                                </mat-chip>
+                                <input
+                                    placeholder="New Involver..."
+                                    #involverInput
+                                    [formControl] = "createEventGroup.get('involver')"
+                                    [matAutocomplete]="auto"
+                                    [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    [matChipInputAddOnBlur]="true"
+                                    (matChipInputTokenEnd)="add($event)"
+                                >
+                            </mat-chip-list>
+                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                <mat-option *ngFor="let oneInvolever of filteredInvoleUsers | async" [value]="oneInvolever">
+                                  {{oneInvolever.fullname}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="stepper-element">
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="warn" (click)="CreateEvent()">Create</button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</div>

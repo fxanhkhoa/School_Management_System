@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 const User = require('../models/user')
 const Event = require('../models/event')
+const Student = require('../models/student')
 const mongoose = require('mongoose')
 const db = "mongodb://myAdmin:myAdmin@localhost:27017/school-management-system"
 
@@ -132,16 +133,35 @@ router.post('/reload', verifyToken, (req, res) =>{
 /** Create Event */
 router.post('/create-event', verifyToken, (req, res) =>{
    let eventData = req.body
-   let event = new Event(eventData)
+   let event = new Event()
 
-   event.save((error, savedEvent) =>{
-      if (error){
-         console.log(error);
-         res.status(204).send("Some Error");
-      } else {
-         res.status(201).send(savedEvent);
-      }
-   });
+   console.log(eventData)
+   event.startdate = eventData.startDate
+   event.enddate = eventData.endDate
+
+   // event.save((error, savedEvent) =>{
+   //    if (error){
+   //       console.log(error);
+   //       res.status(204).send("Some Error");
+   //    } else {
+   //       res.status(201).send(savedEvent);
+   //    }
+   // });
 });
+
+/**
+ * TODO: get all user, student, teacher (get email and full name)
+ */
+router.get('/get-users', verifyToken, (req, res) =>{
+
+   User.find({}, function(err, users){
+      if (err){
+         res.status(404).send({err})
+      }
+      else{
+         res.status(200).send(users);
+      }
+   })
+})
 
 module.exports = router

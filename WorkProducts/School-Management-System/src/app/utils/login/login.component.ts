@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { FormControl, NgForm, Validator, FormGroupDirective, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -31,13 +31,27 @@ export class LoginComponent implements OnInit {
   });
   
   loginUserData = {}
+
+  /**
+   * 
+   * @param _auth 
+   * @param _router 
+   * @param _formBuilder 
+   */
   constructor(private _auth: AuthService,
               private _router: Router,
               public _formBuilder: FormBuilder) {}
 
+  /**
+   * All Initialization
+   */
   ngOnInit() {
   }
 
+  /**
+   * loginUser
+   * TODO: Get data, Call API then check and login
+   */
   loginUser(){
     this.loginUserData = {
       "email": this.loginGroup.get('email').value,

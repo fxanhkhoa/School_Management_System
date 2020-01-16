@@ -10,7 +10,8 @@ import { MatInputModule } from '@angular/material/';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatMenuModule } from '@angular/material';
 import { MatRadioModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
 import { MatStepperModule, MatAutocompleteModule, MatSelectModule, MatGridListModule } from '@angular/material';
-import { MatCardModule, MatExpansionModule, MatTooltipModule } from '@angular/material';
+import { MatCardModule, MatExpansionModule, MatTooltipModule, MatButtonToggleModule } from '@angular/material';
+import { MatChipsModule } from '@angular/material';
 
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
@@ -24,24 +25,25 @@ import { AppComponent } from './app.component';
 /* Browser Animations */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* Component */
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
+import { HomeComponent } from './utils/home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './utils/login/login.component';
+import { DashboardComponent } from './utils/dashboard/dashboard.component';
 /* Auth Service */
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+import { AuthService } from './utils/services/auth.service';
+import { AuthGuard } from './utils/services/auth.guard';
 /* Event Service */
-import { EventService }  from './event.service';
+import { EventService }  from './utils/services/event.service';
 /* Token Interceptor */
-import { TokenInterceptorService } from './token-interceptor.service';
+import { TokenInterceptorService } from './utils/services/token-interceptor.service';
 import { AddStudentComponent } from './add-student/add-student.component';
 
 /* Library */
 import { CalendarSchedulerModule } from 'calendar-scheduler';
 /** Student Schedule Component */
-import { StudentScheduleComponent } from './student-schedule/student-schedule.component';
+import { StudentScheduleComponent } from './Student/student-schedule/student-schedule.component';
+import { CreateEventComponent } from './utils/create-event/create-event.component';
 
 /* define Route */
 const appRoutes: Routes = [
@@ -51,6 +53,7 @@ const appRoutes: Routes = [
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
+  { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
   {
     path: '',
     redirectTo: '/home',
@@ -69,6 +72,7 @@ const appRoutes: Routes = [
     DashboardComponent,
     AddStudentComponent,
     StudentScheduleComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +103,9 @@ const appRoutes: Routes = [
     MatGridListModule,
     MatCardModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonToggleModule,
+    MatChipsModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {
