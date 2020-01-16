@@ -135,18 +135,49 @@ router.post('/create-event', verifyToken, (req, res) =>{
    let eventData = req.body
    let event = new Event()
 
-   console.log(eventData)
+   // TODO: get data of event (exclude involvers)
    event.startdate = eventData.startDate
    event.enddate = eventData.endDate
+   event.name = eventData.name
+   event.content = eventData.content
+   event.note = eventData.note
+   event.progress = eventData.progress
+   event.priority = eventData.priority
+   event.type = eventData.type
+   event.location = eventData.location
 
-   // event.save((error, savedEvent) =>{
-   //    if (error){
-   //       console.log(error);
-   //       res.status(204).send("Some Error");
-   //    } else {
-   //       res.status(201).send(savedEvent);
-   //    }
-   // });
+   // TODO: Save event to Database
+   event.save((error, savedEvent) =>{
+      if (error){
+         console.log(error);
+         res.status(204).send("Some Error");
+      } else {
+         // TODO: Push event to users involved 
+         eventData.involver.forEach(element => {
+
+            // TODO: Get current events and push new event to
+            User.findById(element._id, function(err, user){
+               
+               // TODO: Check if user got this event or not
+               if (!user.events.includes(savedEvent._id)){
+                  user.events.push(savedEvent._id);
+                  user.save((error, savedUser) =>{
+                     if (error){
+                        //** Raise Error */
+                        console.log(error)
+                     } else {
+                        //** Do nothing */
+                        // console.log("success")
+                     }
+                  });
+               }
+            })
+         });
+
+         // TODO: Return status to angular
+         res.status(201).send(savedEvent);
+      }
+   });
 });
 
 /**

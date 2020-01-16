@@ -258,7 +258,7 @@
                 </div>
                 <div class="stepper-element">
                     <button mat-raised-button color="primary" matStepperPrevious>Back</button>
-                    <button mat-raised-button color="warn" (click)="CreateEvent()">Create</button>
+                    <button mat-raised-button color="warn" [disabled]="!createEventGroup.valid" (click)="CreateEvent()">Create</button>
                 </div>
             </mat-step>
         </mat-horizontal-stepper>
