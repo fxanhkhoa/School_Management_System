@@ -25,25 +25,25 @@ import { AppComponent } from './app.component';
 /* Browser Animations */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* Component */
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
+import { HomeComponent } from './utils/home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './utils/login/login.component';
+import { DashboardComponent } from './utils/dashboard/dashboard.component';
 /* Auth Service */
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+import { AuthService } from './utils/services/auth.service';
+import { AuthGuard } from './utils/services/auth.guard';
 /* Event Service */
-import { EventService }  from './event.service';
+import { EventService }  from './utils/services/event.service';
 /* Token Interceptor */
-import { TokenInterceptorService } from './token-interceptor.service';
+import { TokenInterceptorService } from './utils/services/token-interceptor.service';
 import { AddStudentComponent } from './add-student/add-student.component';
 
 /* Library */
 import { CalendarSchedulerModule } from 'calendar-scheduler';
 /** Student Schedule Component */
 import { StudentScheduleComponent } from './Student/student-schedule/student-schedule.component';
-import { CreateEventComponent } from './create-event/create-event.component';
+import { CreateEventComponent } from './utils/create-event/create-event.component';
 
 /* define Route */
 const appRoutes: Routes = [

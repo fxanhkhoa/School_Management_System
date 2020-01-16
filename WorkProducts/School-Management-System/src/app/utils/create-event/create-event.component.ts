@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from
 import { ErrorStateMatcher, MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { EventService } from '../event.service';
+import { EventService } from '../services/event.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
