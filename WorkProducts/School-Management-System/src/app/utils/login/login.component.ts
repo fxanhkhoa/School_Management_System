@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
           // console.log(res)
           sessionStorage.setItem('token', res.token)
           sessionStorage.setItem('email', res.email)
+          sessionStorage.setItem('role', res.role)
           this._auth.setRole(res.role)
           this._router.navigate(['/home'])
         },

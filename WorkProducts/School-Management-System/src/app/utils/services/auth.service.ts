@@ -36,10 +36,16 @@ export class AuthService {
   }
 
   isAdmin(){
-    if (AuthService.role == "admin"){
-      return true
-    } else{
-      return false
+    // if (AuthService.role == "admin"){
+    //   return true
+    // } else{
+    //   return false
+    // }
+
+    if (sessionStorage.getItem('role') == 'admin'){
+      return true;
+    } else {
+      return false;
     }
   }
 

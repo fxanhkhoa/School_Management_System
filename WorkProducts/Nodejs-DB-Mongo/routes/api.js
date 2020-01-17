@@ -195,4 +195,30 @@ router.get('/get-users', verifyToken, (req, res) =>{
    })
 })
 
+/**
+ * TODO: get all events of user then return to angular
+ * @param: input email in json
+ */
+router.post('/get-events-of-user', verifyToken, async (req, res) =>{
+   let userData = req.body;
+   var eventsArray = [];
+
+   // TODO: Get user with email
+   // *input: email in json
+   let userfound = await User.findOne(userData)
+   // console.log(userfound);
+
+   // TODO: get each event information
+   
+   for (let i = 0; i < userfound.events.length; i++){
+      // TODO: Get event by id
+      let oneEvent = await Event.findById(userfound.events[i]);
+      // TODO: Push event to return array
+      eventsArray.push(oneEvent);
+   }
+
+   // TODO: Return result to angular
+   res.status(200).send(eventsArray);
+})
+
 module.exports = router
