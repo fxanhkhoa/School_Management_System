@@ -100,9 +100,22 @@ export class StudentScheduleComponent implements OnInit {
 
   /**
    * TODO: function callback when click a day
-   * @param event 
+   * @param event: is the day clicked 
    */
-  DayDetailView(event){
-    console.log(event);
+  DayDetailView(eventDay){
+    console.log(eventDay);
+    // TODO: Clear events in calendar type day
+    this._calendarTypeDay.events = [];
+    // TODO: Set information for calendar type day
+    this._calendarTypeDay.selectedDay = eventDay;
+    // TODO: Get events of eventDay
+    for (let i = 0; i < this._calendarTypeMonth.events.length; i++){
+      if (this._calendarTypeMonth.events[i].containDay(eventDay)){
+        this._calendarTypeDay.events.push(this._calendarTypeMonth.events[i]);
+      }
+    }
+
+    // TODO: Set to day view mode
+    this._calendarType = 'CalendarTypeDay';
   }
 }

@@ -62,7 +62,7 @@
             <span>Schedule</span>
             <!-- <span>{{_authService.isAdmin()}}</span> -->
           </a>
-          <a *ngIf="_authService.isAdmin()" [routerLink]="'/add-student'" class="list-group-item" data-toggle="collapse">
+          <a *ngIf="(_authService.isAdmin()) || (_authService.isStudent())" [routerLink]="'/student-progress'" class="list-group-item" data-toggle="collapse">
             <span>Classes' Progress</span>
           </a>
         </div>

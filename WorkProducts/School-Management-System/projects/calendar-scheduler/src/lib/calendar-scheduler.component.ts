@@ -50,6 +50,16 @@ export class CalendarSchedulerComponent implements OnInit {
     'December'
   ];
 
+  dayStr: String[] = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thushday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+  ];
+
   today: Date;
 
   tempDate: Date;

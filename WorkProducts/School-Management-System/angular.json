@@ -200,6 +200,41 @@
           }
         }
       }
+    },
+    "EventProgress": {
+      "projectType": "library",
+      "root": "projects/event-progress",
+      "sourceRoot": "projects/event-progress/src",
+      "prefix": "fx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/event-progress/tsconfig.lib.json",
+            "project": "projects/event-progress/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/event-progress/src/test.ts",
+            "tsConfig": "projects/event-progress/tsconfig.spec.json",
+            "karmaConfig": "projects/event-progress/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/event-progress/tsconfig.lib.json",
+              "projects/event-progress/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "School-Management-System",

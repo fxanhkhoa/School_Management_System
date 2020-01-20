@@ -30,6 +30,12 @@
       ],
       "calendar-scheduler/*": [
         "dist/calendar-scheduler/*"
+      ],
+      "event-progress": [
+        "dist/event-progress"
+      ],
+      "event-progress/*": [
+        "dist/event-progress/*"
       ]
     }
   },

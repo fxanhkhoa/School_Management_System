@@ -10,6 +10,11 @@
     color: #2b40a6;
 }
 
+.calendar-body{
+    position: static;
+    height: 175vh;
+}
+
 .h4-list-item{
     font-weight: bold;
     color: #2b40a6;

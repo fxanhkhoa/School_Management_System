@@ -39,21 +39,32 @@ import { EventService }  from './utils/services/event.service';
 import { TokenInterceptorService } from './utils/services/token-interceptor.service';
 import { AddStudentComponent } from './add-student/add-student.component';
 
+/**
+ * * Util import
+ */
+import { CreateEventComponent } from './utils/create-event/create-event.component';
+
+
 /* Library */
 import { CalendarSchedulerModule } from 'calendar-scheduler';
+import { EventProgressModule } from 'event-progress';
 /** Student Schedule Component */
 import { StudentScheduleComponent } from './Student/student-schedule/student-schedule.component';
-import { CreateEventComponent } from './utils/create-event/create-event.component';
+import { StudentProgressComponent } from './Student/student-progress/student-progress.component';
 
 /* define Route */
 const appRoutes: Routes = [
+  // * Util link
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
   { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
+  // * Student link
+  { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
+  { path: 'student-progress', component: StudentProgressComponent, canActivate: [AuthGuard]},
+  // * Default link
   {
     path: '',
     redirectTo: '/home',
@@ -73,6 +84,7 @@ const appRoutes: Routes = [
     AddStudentComponent,
     StudentScheduleComponent,
     CreateEventComponent,
+    StudentProgressComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,13 +111,16 @@ const appRoutes: Routes = [
     MatStepperModule, 
     MatAutocompleteModule,
     MatSelectModule,
-    CalendarSchedulerModule,
     MatGridListModule,
     MatCardModule,
     MatExpansionModule,
     MatTooltipModule,
     MatButtonToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    
+    // * Owned Library Module
+    CalendarSchedulerModule,
+    EventProgressModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {

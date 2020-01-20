@@ -27,8 +27,18 @@ export class Event {
         // }
         
         if ((this.startdate.getDate() <= inputday.getDate()) 
-            && (inputday.getDate() <= this.enddate.getDate())){
-            return true;
+        && (inputday.getDate() <= this.enddate.getDate())){
+            if ((this.startdate.getMonth() <= inputday.getMonth()) 
+            && (inputday.getMonth() <= this.enddate.getMonth()))
+                if ((this.startdate.getFullYear() <= inputday.getFullYear()) 
+                && (inputday.getFullYear() <= this.enddate.getFullYear()))
+                    return true;
+                else {
+                    return false;
+                }
+            else {
+                return false;
+            }
         } else {
             return false;
         }
