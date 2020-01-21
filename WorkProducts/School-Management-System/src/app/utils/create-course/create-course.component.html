@@ -1,0 +1,76 @@
+<div class="body-container">
+    <div [formGroup]="courseGroup" class="container">
+        <mat-horizontal-stepper [linear]="false" #stepper>
+            <mat-step class="stepper">
+                <!-- Main Information -->
+                <ng-template matStepLabel>Main Information</ng-template>
+                <!-- Course ID -->
+                <div class="row stepper-element">
+                    <mat-form-field>
+                        <input
+                            matInput
+                            type="text"
+                            placeholder="Input Course ID"
+                            id="courseid"
+                            [formControl] = "courseGroup.get('courseid')"
+                            formControlName="courseid"
+                            required
+                        >
+                        <mat-error *ngIf="courseGroup.get('courseid')?.hasError('required')">
+                            Course ID is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- Course Name -->
+                <div class="row stepper-element">
+                    <mat-form-field>
+                        <input
+                            matInput
+                            type="text"
+                            placeholder="Input Course Name"
+                            id="coursename"
+                            [formControl] = "courseGroup.get('coursename')"
+                            formControlName="coursename"
+                            required
+                        >
+                        <mat-error *ngIf="courseGroup.get('coursename')?.hasError('required')">
+                            Course Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="stepper-element">
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+
+            <!-- Time Information -->
+            <mat-step>
+                <ng-template matStepLabel>Time Information</ng-template>
+                <div class="row stepper-element">
+                    <mat-form-field>
+                        <input 
+                            matInput 
+                            [matDatepicker]="picker" 
+                            placeholder="Start day"
+                            [errorStateMatcher]="matcher"
+                            id="startday"
+                            [formControl] = "courseGroup.get('startday')"
+                            required
+                        >
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="courseGroup.get('startday')?.hasError('required')">
+                            Start Date is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="stepper-element">
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="warn" [disabled]="!courseGroup.valid" >Create</button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</div>>

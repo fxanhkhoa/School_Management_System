@@ -51,6 +51,7 @@ import { EventProgressModule } from 'event-progress';
 /** Student Schedule Component */
 import { StudentScheduleComponent } from './Student/student-schedule/student-schedule.component';
 import { StudentProgressComponent } from './Student/student-progress/student-progress.component';
+import { CreateCourseComponent } from './utils/create-course/create-course.component';
 
 /* define Route */
 const appRoutes: Routes = [
@@ -61,6 +62,7 @@ const appRoutes: Routes = [
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
+  { path: 'create-course', component: CreateCourseComponent, canActivate: [AuthGuard]},
   // * Student link
   { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
   { path: 'student-progress', component: StudentProgressComponent, canActivate: [AuthGuard]},
@@ -85,6 +87,7 @@ const appRoutes: Routes = [
     StudentScheduleComponent,
     CreateEventComponent,
     StudentProgressComponent,
+    CreateCourseComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,9 +99,10 @@ const appRoutes: Routes = [
     ),
     FormsModule,
     HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
     ReactiveFormsModule,
+    // * Angular material Modules
+    MatInputModule,
+    MatFormFieldModule,
     MatToolbarModule, 
     MatIconModule, 
     MatSidenavModule, 

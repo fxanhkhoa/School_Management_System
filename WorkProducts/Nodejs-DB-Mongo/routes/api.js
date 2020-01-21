@@ -221,4 +221,14 @@ router.post('/get-events-of-user', verifyToken, async (req, res) =>{
    res.status(200).send(eventsArray);
 })
 
+/**
+ * TODO: Create new course
+ * @param: input model course
+ */
+router.post('/create-course', verifyToken, async(req, res) =>{
+   let userData = req.body;
+
+   console.log(userData)
+})
+
 module.exports = router

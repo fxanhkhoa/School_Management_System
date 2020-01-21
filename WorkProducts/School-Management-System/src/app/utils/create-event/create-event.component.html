@@ -101,6 +101,9 @@
                                 formControlName="name"
                                 required
                             >
+                            <mat-error *ngIf="createEventGroup.get('name')?.hasError('required')">
+                                Event name is <strong>required</strong>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
