@@ -5,4 +5,12 @@
     justify-content: top;
     align-items: center;
     flex-direction: column;
-  }
+}
+
+.checkbox-body{
+  margin-left: 5px;
+}
+
+.example-chip-list{
+  width: 100%;
+}

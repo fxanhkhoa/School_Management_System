@@ -4,40 +4,45 @@
             <mat-step class="stepper">
                 <!-- Main Information -->
                 <ng-template matStepLabel>Main Information</ng-template>
-                <!-- Course ID -->
+                
                 <div class="row stepper-element">
-                    <mat-form-field>
-                        <input
-                            matInput
-                            type="text"
-                            placeholder="Input Course ID"
-                            id="courseid"
-                            [formControl] = "courseGroup.get('courseid')"
-                            formControlName="courseid"
-                            required
-                        >
-                        <mat-error *ngIf="courseGroup.get('courseid')?.hasError('required')">
-                            Course ID is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
+                    <!-- Course ID -->
+                    <div class="col">
+                        <mat-form-field>
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="Input Course ID"
+                                id="courseid"
+                                [formControl] = "courseGroup.get('courseid')"
+                                formControlName="courseid"
+                                required
+                            >
+                            <mat-error *ngIf="courseGroup.get('courseid')?.hasError('required')">
+                                Course ID is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Course Name -->
+                    <div class="col">
+                        <mat-form-field>
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="Input Course Name"
+                                id="coursename"
+                                [formControl] = "courseGroup.get('coursename')"
+                                formControlName="coursename"
+                                required
+                            >
+                            <mat-error *ngIf="courseGroup.get('coursename')?.hasError('required')">
+                                Course Name is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <!-- Course Name -->
-                <div class="row stepper-element">
-                    <mat-form-field>
-                        <input
-                            matInput
-                            type="text"
-                            placeholder="Input Course Name"
-                            id="coursename"
-                            [formControl] = "courseGroup.get('coursename')"
-                            formControlName="coursename"
-                            required
-                        >
-                        <mat-error *ngIf="courseGroup.get('coursename')?.hasError('required')">
-                            Course Name is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+                
                 <div class="stepper-element">
                     <button mat-raised-button color="primary" matStepperNext>Next</button>
                 </div>
@@ -47,28 +52,147 @@
             <mat-step>
                 <ng-template matStepLabel>Time Information</ng-template>
                 <div class="row stepper-element">
-                    <mat-form-field>
-                        <input 
-                            matInput 
-                            [matDatepicker]="picker" 
-                            placeholder="Start day"
-                            [errorStateMatcher]="matcher"
-                            id="startday"
-                            [formControl] = "courseGroup.get('startday')"
-                            required
-                        >
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                        <mat-error *ngIf="courseGroup.get('startday')?.hasError('required')">
-                            Start Date is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
+                    <!-- Start Day -->
+                    <div class="col">
+                        <mat-form-field>
+                            <input 
+                                matInput 
+                                [matDatepicker]="picker" 
+                                placeholder="Start day"
+                                [errorStateMatcher]="matcher"
+                                id="startday"
+                                [formControl] = "courseGroup.get('startday')"
+                                required
+                            >
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="courseGroup.get('startday')?.hasError('required')">
+                                Start Day is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- End Day -->
+                    <div class="col">
+                        <mat-form-field>
+                            <input 
+                                matInput 
+                                [matDatepicker]="pickerend" 
+                                placeholder="End day"
+                                [errorStateMatcher]="matcher"
+                                id="endday"
+                                [formControl] = "courseGroup.get('endday')"
+                                required
+                            >
+                            <mat-datepicker-toggle matSuffix [for]="pickerend"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerend></mat-datepicker>
+                            <mat-error *ngIf="courseGroup.get('endday')?.hasError('required')">
+                                End Day is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
 
+                <div class="row">
+                    <h5 class="col">Frequency</h5>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <mat-checkbox
+                            class="checkbox-body"
+                            [labelPosition]="'after'"
+                            [formControl]= "courseGroup.get('monday')"
+                            formControlName = "monday">
+                            Monday
+                        </mat-checkbox>
+
+                        <mat-checkbox
+                            class="checkbox-body"
+                            [labelPosition]="'after'"
+                            [formControl]= "courseGroup.get('tuesday')"
+                            formControlName = "tuesday">
+                            Tuesday
+                        </mat-checkbox>
+
+                        <mat-checkbox
+                            class="checkbox-body"
+                            [labelPosition]="'after'"
+                            [formControl]= "courseGroup.get('wednesday')"
+                            formControlName = "wednesday">
+                            Wednesday
+                        </mat-checkbox>
+
+                        <mat-checkbox
+                            class="checkbox-body"
+                            [labelPosition]="'after'"
+                            [formControl]= "courseGroup.get('thursday')"
+                            formControlName = "thursday">
+                            Thursday
+                        </mat-checkbox>
+
+                        <mat-checkbox
+                            class="checkbox-body"
+                            [labelPosition]="'after'"
+                            [formControl]= "courseGroup.get('friday')"
+                            formControlName = "friday">
+                            Friday
+                        </mat-checkbox>
+
+                        <mat-checkbox
+                            class="checkbox-body"
+                            [labelPosition]="'after'"
+                            [formControl]= "courseGroup.get('saturday')"
+                            formControlName = "saturday">
+                            Saturday
+                        </mat-checkbox>
+
+                        <mat-checkbox
+                            class="checkbox-body"
+                            [labelPosition]="'after'"
+                            [formControl]= "courseGroup.get('sunday')"
+                            formControlName = "sunday">
+                            Sunday
+                        </mat-checkbox>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class='col'>
+                        <mat-form-field class="example-chip-list">
+                            <mat-chip-list #chipList aria-label="involveUsers selection">
+                                <mat-chip
+                                    *ngFor="let oneInvolever of involveUsers"
+                                    [selectable]="true"
+                                    [removable]="true"
+                                    (removed)="remove(oneInvolever)">
+                                >
+                                {{oneInvolever.fullname}}
+                                <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                                </mat-chip>
+                                <input
+                                    placeholder="New Involver..."
+                                    #involverInput
+                                    [formControl] = "courseGroup.get('involver')"
+                                    [matAutocomplete]="auto"
+                                    [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    [matChipInputAddOnBlur]="true"
+                                    (matChipInputTokenEnd)="add($event)"
+                                >
+                            </mat-chip-list>
+                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                <mat-option *ngFor="let oneInvolever of filteredInvoleUsers | async" [value]="oneInvolever">
+                                  {{oneInvolever.fullname}} || {{oneInvolever.email}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
 
                 <div class="stepper-element">
                     <button mat-raised-button color="primary" matStepperPrevious>Back</button>
-                    <button mat-raised-button color="warn" [disabled]="!courseGroup.valid" >Create</button>
+                    <button mat-raised-button color="warn" [disabled]="!courseGroup.valid" (click)="CreateCourse()">Create</button>
                 </div>
             </mat-step>
         </mat-horizontal-stepper>

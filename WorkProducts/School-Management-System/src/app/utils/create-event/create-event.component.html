@@ -253,7 +253,7 @@
                             </mat-chip-list>
                             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                                 <mat-option *ngFor="let oneInvolever of filteredInvoleUsers | async" [value]="oneInvolever">
-                                  {{oneInvolever.fullname}}
+                                  {{oneInvolever.fullname}} || {{oneInvolever.email}}
                                 </mat-option>
                             </mat-autocomplete>
                         </mat-form-field>
