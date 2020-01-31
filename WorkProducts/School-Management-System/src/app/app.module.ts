@@ -11,7 +11,7 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatBu
 import { MatRadioModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
 import { MatStepperModule, MatAutocompleteModule, MatSelectModule, MatGridListModule } from '@angular/material';
 import { MatCardModule, MatExpansionModule, MatTooltipModule, MatButtonToggleModule } from '@angular/material';
-import { MatChipsModule, MatCheckboxModule } from '@angular/material';
+import { MatChipsModule, MatCheckboxModule, MatSnackBarModule } from '@angular/material';
 
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
@@ -122,6 +122,7 @@ const appRoutes: Routes = [
     MatButtonToggleModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatSnackBarModule,
     
     // * Owned Library Module
     CalendarSchedulerModule,

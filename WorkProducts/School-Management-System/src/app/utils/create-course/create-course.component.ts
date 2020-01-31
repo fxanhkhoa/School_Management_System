@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { ErrorStateMatcher, MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent, MatSnackBar } from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { EventService } from '../services/event.service';
@@ -33,7 +33,8 @@ export class CreateCourseComponent implements OnInit {
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   constructor(public _formBuilder: FormBuilder,
-              private _event: EventService) { 
+              private _event: EventService,
+              private _snackBar: MatSnackBar) { 
                 this.filteredInvoleUsers = this.courseGroup.get('involver').valueChanges.pipe(
                   startWith(null),
                   map((involverInput: string | null) => involverInput ? this._filter(involverInput) : this.allUsers.slice()));
@@ -122,6 +123,30 @@ export class CreateCourseComponent implements OnInit {
   }
 
   CreateCourse(){
+    // TODO: Set involver value
+    this.courseGroup.get('involver').setValue(this.involveUsers);
     console.log(this.courseGroup.value);
+
+    this._event.createCourse(this.courseGroup.value)
+      .subscribe(
+        res => {
+          // console.log(res);
+          if (res){
+            this._snackBar.open("successful", "", {
+              duration: 2000,
+              panelClass: ['success-snake']
+            })
+          }
+        },
+        err => {
+          console.log(err);
+          this._snackBar.open("fail", "", {
+            duration: 2000,
+            panelClass: ['fail-snake']
+          })
+        }
+      )
   }
+
+  
 }

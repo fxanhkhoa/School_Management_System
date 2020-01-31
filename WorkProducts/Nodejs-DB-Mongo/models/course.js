@@ -9,4 +9,4 @@ const courseSchema = new Schema({
     frequency: [String],
 })
 
-module.exports = mongoose.model('course', eventSchema, 'courses')
+module.exports = mongoose.model('course', courseSchema, 'courses')

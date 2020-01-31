@@ -10,6 +10,7 @@ export class EventService {
   private _createEventUrl = "http://localhost:3000/api/create-event"
   private _getUsers = "http://localhost:3000/api/get-users"
   private _getEventsOfUser = "http://localhost:3000/api/get-events-of-user"
+  private _createCourseUrl = "http://localhost:3000/api/create-course"
 
   constructor(private http: HttpClient) { }
 
@@ -27,5 +28,9 @@ export class EventService {
 
   getEventsOfUser(email){
     return this.http.post<any>(this._getEventsOfUser, email);
+  }
+
+  createCourse(course){
+    return this.http.post<any>(this._createCourseUrl, course);
   }
 }

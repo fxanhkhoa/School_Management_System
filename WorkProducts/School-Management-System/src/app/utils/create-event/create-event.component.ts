@@ -83,6 +83,7 @@ export class CreateEventComponent implements OnInit {
   });
 
   CreateEvent(){
+    // TODO: Set involvers
     // console.log(this.involveUsers);
     this.createEventGroup.get('involver').setValue(this.involveUsers);
     // console.log(this.createEventGroup.value);
