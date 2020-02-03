@@ -6,7 +6,8 @@ const userSchema = new Schema({
    password: String,
    role: String,
    fullname: String,
-   events: [String]
+   events: [String],
+   courses: [String],
 })
 
 module.exports = mongoose.model('user', userSchema, 'users')

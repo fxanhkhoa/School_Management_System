@@ -125,7 +125,7 @@ export class CreateCourseComponent implements OnInit {
   CreateCourse(){
     // TODO: Set involver value
     this.courseGroup.get('involver').setValue(this.involveUsers);
-    console.log(this.courseGroup.value);
+    // console.log(this.courseGroup.value);
 
     this._event.createCourse(this.courseGroup.value)
       .subscribe(
@@ -139,7 +139,7 @@ export class CreateCourseComponent implements OnInit {
           }
         },
         err => {
-          console.log(err);
+          // console.log(err);
           this._snackBar.open("fail", "", {
             duration: 2000,
             panelClass: ['fail-snake']

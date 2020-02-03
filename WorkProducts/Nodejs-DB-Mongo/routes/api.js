@@ -226,8 +226,8 @@ router.post('/get-events-of-user', verifyToken, async (req, res) =>{
  * @param: input model course
  */
 router.post('/create-course', verifyToken, async(req, res) =>{
+
    let userData = req.body;
-   console.log(userData);
 
    // TODO: Initialize Course schema
    let courseData = new Course();
@@ -237,79 +237,77 @@ router.post('/create-course', verifyToken, async(req, res) =>{
       if (error){
          // * 500: Internal Server Error
          res.status(500).send("fail");
-         return;
       }
       // ! existed course id
       else if (onecourse){ 
          // * 409 : conflict status
          res.status(409).send("fail");
-         return;
       }
       // * course id not existed
+      // TODO: Add Course and involvers
       else {
-         /** Do nothing */
-      }
-      return;
-   })
+         // TODO: Put value into courseData
+         courseData.courseid = userData.courseid
+         courseData.name = userData.coursename
+         courseData.startday = userData.startday
+         courseData.endday = userData.endday
 
-   // TODO: Put value into courseData
-   courseData.courseid = userData.courseid
-   courseData.name = userData.coursename
-   courseData.startday = userData.startday
-   courseData.endday = userData.endday
+         if (userData.monday == true){
+            courseData.frequency.push("monday");
+         }
+         if (userData.tuesday == true){
+            courseData.frequency.push("tuesday");
+         }
+         if (userData.wednesday == true){
+            courseData.frequency.push("wednesday");
+         }
+         if (userData.thursday == true){
+            courseData.frequency.push("thursday");
+         }
+         if (userData.friday == true){
+            courseData.frequency.push("friday");
+         }
+         if (userData.saturday == true){
+            courseData.frequency.push("saturday");
+         }
+         if (userData.sunday == true){
+            courseData.frequency.push("sunday");
+         }
 
-   if (userData.monday == true){
-      courseData.frequency.push("monday");
-   }
-   if (userData.tuesday == true){
-      courseData.frequency.push("tuesday");
-   }
-   if (userData.wednesday == true){
-      courseData.frequency.push("wednesday");
-   }
-   if (userData.thursday == true){
-      courseData.frequency.push("thursday");
-   }
-   if (userData.friday == true){
-      courseData.frequency.push("friday");
-   }
-   if (userData.saturday == true){
-      courseData.frequency.push("saturday");
-   }
-   if (userData.sunday == true){
-      courseData.frequency.push("sunday");
-   }
-
-   // TODO: Save course data to database
-   courseData.save((error, savedCourse) =>{
-      if (error){
-         // * 500: Interal Server Errro
-         res.status(500).send("Error");
-      } else {
-         // TODO: Push course to involvers
-         userData.involver.forEach(element =>{
-            // TODO: Get current events and push new event to
-            User.findById(element._id, function(err, user){
-               // TODO: Check if user got this event or not
-               if (!user.courses.includes(savedCourse._id)){
-                  user.courses.push(savedCourse._id);
-                  user.save((error, savedUser) =>{
-                     if (error){
-                        //** Raise Error */
-                        console.log(error)
-                     } else {
-                        //** Do nothing */
-                        // console.log("success")
+         // TODO: Save course data to database
+         courseData.save((error, savedCourse) =>{
+            if (error){
+               // * 500: Interal Server Errro
+               res.status(500).send("Error");
+            } else {
+               // TODO: Push course to involvers
+               userData.involver.forEach(element =>{
+                  // TODO: Get current events and push new event to
+                  User.findById(element._id, function(err, user){
+                     // TODO: Check if user got this event or not
+                     if (!user.courses.includes(savedCourse._id)){
+                        user.courses.push(savedCourse._id);
+                        user.save((error, savedUser) =>{
+                           if (error){
+                              //** Raise Error */
+                              console.log(error)
+                           } else {
+                              //** Do nothing */
+                              // console.log("success")
+                           }
+                        });
                      }
-                  });
-               }
-            })
-         })
+                  })
+               })
 
-         // TODO: Return status to angular
-         res.status(201).send(savedCourse);
+               // TODO: Return status to angular
+               res.status(201).send(savedCourse);
+            }
+         })
       }
    })
+
+      
 })
 
 module.exports = router
