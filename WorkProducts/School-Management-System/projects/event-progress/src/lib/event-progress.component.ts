@@ -17,9 +17,15 @@ export class EventProgressComponent implements OnInit {
 
   @Input() course: Course;
 
+  /**
+   * * Variables for data binding
+   */
+  completedPercent;
+
   constructor() { }
 
   ngOnInit() {
+    this.completedPercent = this.course.getCompletedPercent();
   }
 
 }

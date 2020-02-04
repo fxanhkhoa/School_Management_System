@@ -3,6 +3,8 @@ export class Course {
     name: String;
     startday: Date;
     endday: Date;
+    starttime: String;
+    endtime: String;
     frequency: String[] = [];
 
     dayOfWeek = [
@@ -19,13 +21,6 @@ export class Course {
      * TODO: Get All day that this course takes
      */
     getAllDayOfCourse(){
-
-    }
-
-    /**
-     * TODO: Get the amount of day that this course takes
-     */
-    getNumberOfDayInCourse(){
         var retArray = [];
         /**
          * *Algorithm: Loop each day, if it's in frequency so it is a day
@@ -39,5 +34,39 @@ export class Course {
         }
 
         return retArray;
+    }
+
+    /**
+     * TODO: Get the amount of day that this course takes
+     */
+    getNumberOfDayInCourse(){
+        var retArray = [];
+        /**
+         * *Algorithm: Loop each day, if it's in frequency so it is a day
+         */
+        retArray = this.getAllDayOfCourse();
+
+        return retArray.length;
+    }
+
+    /**
+     * TODO: Get completed percentage
+     * * Algorithm: count numbers of day earlier than current day
+     */
+    getCompletedPercent(){
+        let daysInCourse = this.getAllDayOfCourse();
+        let currentDay = new Date();
+        var numberOfDay = 0;
+        for (numberOfDay = 0; numberOfDay < daysInCourse.length; numberOfDay++){
+            // * for to current day
+            if (daysInCourse[numberOfDay] > currentDay){
+                break;
+            }
+        }
+
+        // TODO: Calculate Percentage
+        // console.log(numberOfDay)
+        let percentage = (numberOfDay * 100) / daysInCourse.length;
+        return percentage;
     }
 }

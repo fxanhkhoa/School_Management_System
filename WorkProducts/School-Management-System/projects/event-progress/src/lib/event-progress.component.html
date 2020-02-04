@@ -1,1 +1,23 @@
-Hello
+<div class="container">
+    <!-- Course information -->
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col">
+            id: {{course.courseid}}
+        </div>
+        <div class="col">
+            name: {{course.name}}
+        </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="row" style="margin-top: 10px;">
+        <div class="col" style="width: 100%;">
+            <mat-progress-bar
+                class="example-margin"
+                [color]="'warn'"
+                [mode]="'determinate'"
+                [value]="completedPercent">
+            </mat-progress-bar>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,8 @@ const courseSchema = new Schema({
     name: String,
     startday: Date,
     endday: Date,
+    starttime: String,
+    endtime: String,
     frequency: [String],
 })
 

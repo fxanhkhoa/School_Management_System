@@ -251,6 +251,8 @@ router.post('/create-course', verifyToken, async(req, res) =>{
          courseData.name = userData.coursename
          courseData.startday = userData.startday
          courseData.endday = userData.endday
+         courseData.starttime = userData.starttime
+         courseData.endtime = userData.endtime
 
          if (userData.monday == true){
             courseData.frequency.push("monday");

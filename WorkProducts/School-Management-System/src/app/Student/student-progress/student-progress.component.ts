@@ -8,6 +8,7 @@ import { Course } from 'event-progress';
 })
 export class StudentProgressComponent implements OnInit {
 
+  temp = new Course();
   dayOfWeek = [
     'sunday',
     'monday',
@@ -21,17 +22,15 @@ export class StudentProgressComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let temp = new Course();
 
-    temp.courseid = "aaa";
-    temp.startday = new Date(2020, 1, 1, 0, 0, 0, 0);
-    temp.endday = new Date(2020, 2, 1, 0, 0, 0, 0);
+    this.temp.courseid = "aaa";
+    this.temp.name = "TOEIC 800";
+    this.temp.startday = new Date(2020, 1, 1, 0, 0, 0, 0);
+    this.temp.endday = new Date(2020, 2, 1, 0, 0, 0, 0);
+    this.temp.starttime = "11:11";
+    this.temp.endtime = "14:22";
 
-    temp.frequency = ['monday', 'wednesday', 'friday'];
-
-    let retArr = temp.getNumberOfDayInCourse();
-    console.log(retArr.length);
-    console.log(retArr);
+    this.temp.frequency = ['monday', 'wednesday', 'friday'];
   }
 
 }

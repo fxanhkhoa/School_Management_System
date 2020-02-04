@@ -94,6 +94,43 @@
                 </div>
 
                 <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <input 
+                                matInput 
+                                type="time" 
+                                placeholder="Start time"
+                                [errorStateMatcher]="matcher"
+                                id="starttime"
+                                [formControl] = "courseGroup.get('starttime')"
+                                formControlName="starttime"
+                                required
+                            >
+                            <mat-error *ngIf="courseGroup.get('starttime')?.hasError('required')">
+                                Start Time is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field>
+                            <input 
+                                matInput 
+                                type="time" 
+                                placeholder="end time"
+                                [errorStateMatcher]="matcher"
+                                id="endtime"
+                                [formControl] = "courseGroup.get('endtime')"
+                                formControlName="endtime"
+                                required
+                            >
+                            <mat-error *ngIf="courseGroup.get('endtime')?.hasError('required')">
+                                End Time is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
                     <h5 class="col">Frequency</h5>
                 </div>
 

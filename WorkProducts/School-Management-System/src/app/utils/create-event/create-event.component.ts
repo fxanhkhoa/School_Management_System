@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { EventService } from '../services/event.service';
@@ -33,6 +34,7 @@ export class CreateEventComponent implements OnInit {
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   constructor(public _formBuilder: FormBuilder,
+              private _snackBar: MatSnackBar,
               private _event: EventService) {
     this.filteredInvoleUsers = this.createEventGroup.get('involver').valueChanges.pipe(
       startWith(null),
@@ -86,13 +88,39 @@ export class CreateEventComponent implements OnInit {
     // TODO: Set involvers
     // console.log(this.involveUsers);
     this.createEventGroup.get('involver').setValue(this.involveUsers);
-    // console.log(this.createEventGroup.value);
+    // TODO: Set time to datetime
+    // TODO: Set startDate
+    var array = this.createEventGroup.value.startTime.split(":");
+    var d = new Date(this.createEventGroup.value.startDate);
+    d.setHours(array[0]);
+    d.setMinutes(array[1]);
+    this.createEventGroup.value.startDate = d.toString();
+
+    // TODO: Set endDate
+    array = this.createEventGroup.value.endTime.split(":");
+    d = new Date(this.createEventGroup.value.endDate);
+    d.setHours(array[0]);
+    d.setMinutes(array[1]);
+    this.createEventGroup.value.endDate = d.toString();
+    console.log(this.createEventGroup.value);
     this._event.createEvent(this.createEventGroup.value)
       .subscribe(
         res => {
-          console.log(res);
+          // console.log(res);
+          if (res){
+            this._snackBar.open("successful", "", {
+              duration: 2000,
+              panelClass: ['success-snake']
+            })
+          }
         },
-        err => console.log(err)
+        err => {
+          // console.log(err)
+          this._snackBar.open("fail", "", {
+            duration: 2000,
+            panelClass: ['fail-snake']
+          })
+        }
       )
   }
 

@@ -66,6 +66,12 @@ export class CreateCourseComponent implements OnInit {
     endday: new FormControl('',[
       Validators.required
     ]),
+    starttime: new FormControl('',[
+      Validators.required
+    ]),
+    endtime: new FormControl('',[
+      Validators.required
+    ]),
     // * 7 checkbox for 7 day of week
     monday: new FormControl('', []),
     tuesday: new FormControl('', []),
