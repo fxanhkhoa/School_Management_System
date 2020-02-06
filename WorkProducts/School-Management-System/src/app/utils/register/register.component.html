@@ -33,6 +33,7 @@
             <input
               matInput
               placeholder="Input Password"
+              type={{typeChoosen}}
               [errorStateMatcher]="matcher"
               id="password"
               [formControl]="registerGroup.get('password')"
@@ -42,6 +43,9 @@
             <mat-error *ngIf="registerGroup.get('password')?.hasError('required')">
               Password is <strong>required</strong>
             </mat-error>
+            <button mat-button matSuffix mat-icon-button (click)="toggleViewPass()">
+              <mat-icon>{{passwordViewIcon}}</mat-icon>
+            </button>
           </mat-form-field>
         </div>
         
@@ -78,10 +82,10 @@
               <mat-radio-group
                 class="s-radio-group stepper-element"
                 aria-label="Select an option"
-                [formControl] = "registerGroup.get('sex')"
+                [formControl] = "registerGroup.get('gender')"
               >
-              <mat-radio-button class="s-radio-button" *ngFor="let gender of genders" [value]="gender">
-                {{gender}}
+              <mat-radio-button class="s-radio-button" *ngFor="let onegender of genders" [value]="onegender">
+                {{onegender}}
               </mat-radio-button>
               </mat-radio-group>
           </div>
@@ -93,7 +97,7 @@
             <div class="col">
               <mat-form-field>
                 <input 
-                  [formControl] = "registerGroup.get('date_of_birth')"  
+                  [formControl] = "registerGroup.get('birthday')"  
                   matInput [matDatepicker]="picker" 
                   placeholder="Birthday"
                 >
@@ -150,8 +154,8 @@
         
         <div>
           <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" (click)="registerUser()" [disabled]="!registerGroup.valid">Register</button>
         </div>
-        <button type="button" (click)="registerUser()" [disabled]="!registerGroup.valid" class="btn btn-success float-right">Login</button>
       </mat-step>
 
     </mat-horizontal-stepper>

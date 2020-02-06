@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from 'event-progress';
+import { AuthService } from 'src/app/utils/services/auth.service';
+import { Router } from '@angular/router';
+import { EventService } from 'src/app/utils/services/event.service';
 
 @Component({
   selector: 'app-student-progress',
@@ -19,18 +22,62 @@ export class StudentProgressComponent implements OnInit {
     'saturday',
   ];
 
-  constructor() { }
+  listCourses: Course[] = [];
 
+  loaded = false;
+
+  constructor(private _auth: AuthService,
+              private _router: Router,
+              private _eventService: EventService) { }
+
+  /**
+   * TODO: Check role before use
+   * TODO: Get all courses of user
+   * * Algorithm:
+   * * If role is not admin or student then back to login
+   */
   ngOnInit() {
 
-    this.temp.courseid = "aaa";
-    this.temp.name = "TOEIC 800";
-    this.temp.startday = new Date(2020, 1, 1, 0, 0, 0, 0);
-    this.temp.endday = new Date(2020, 2, 1, 0, 0, 0, 0);
-    this.temp.starttime = "11:11";
-    this.temp.endtime = "14:22";
+    if ((!this._auth.isAdmin()) && (!this._auth.isStudent())){
+      this._router.navigate(['/login']);
+    } else {
+      /** Do nothing */
+    }
 
-    this.temp.frequency = ['monday', 'wednesday', 'friday'];
+    this.getCourses();   
+  }
+
+  async getCourses(){
+    let email = sessionStorage.getItem('email')
+
+    // TODO: Get Courses
+    this._eventService.getCoursesOfUser({email})
+      .subscribe(
+        res =>{
+          console.log(res);
+          for (let i = 0; i < res.length; i++){
+            let newCourse = new Course();
+            
+            newCourse.courseid = res[i].courseid;
+            newCourse.name = res[i].name;
+            newCourse.startday = new Date(res[i].startday);
+            newCourse.endday = new Date(res[i].endday);
+            newCourse.starttime = res[i].starttime;
+            newCourse.endtime = res[i].endtime;
+            newCourse.frequency = res[i].frequency;
+
+            this.listCourses.push(newCourse);
+          }
+          // TODO: Signal to load UI
+          // ! Need to do here because this is asynchronous thread
+          // ! if no signal it will load first then get API data later
+          // ! So no data will be shown
+          this.loaded = true;
+        },
+        err => {
+          console.log(err);
+        }
+      )
   }
 
 }

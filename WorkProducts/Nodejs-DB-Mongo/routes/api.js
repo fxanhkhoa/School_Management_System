@@ -42,33 +42,37 @@ router.get('/', (req, res) => {
    res.send('From API Route')
 })
 
-router.post('/register', (req, res) =>{
+router.post('/register-user', (req, res) =>{
    let userData = req.body
-   let user = new User(userData)
+   var user = new User(userData)
 
-   user.findOne({email: userData.email}, (error, user) =>{
+   // console.log(userData)
+
+   user.events = []
+   user.courses = []
+
+   User.findOne({email: userData.email}, (error, foundUser) =>{
       if (error){
          console.log(error)
       } else {
-         if (user){
+         // TODO: Check if email existed
+         if (foundUser){
             res.status(409).send("email existed");
             return;
          }
          else{
-            /** Do Nothing */
+            user.save((error, registeredUser) => {
+               if (error){
+                  console.log(error)
+               } else {
+                  let payload = { subject: registeredUser._id }
+                  let token = jwt.sign(payload, 'secretKey')
+                  res.status(200).send({token})
+               }
+            })
          }
       }
    });
-
-   user.save((error, registeredUser) => {
-      if (error){
-         console.log(error)
-      } else {
-         let payload = { subject: registeredUser._id }
-         let token = jwt.sign(payload, 'secretKey')
-         res.status(200).send({token})
-      }
-   })
 })
 
 router.post('/login', (req, res) =>{
@@ -310,6 +314,29 @@ router.post('/create-course', verifyToken, async(req, res) =>{
    })
 
       
+})
+
+/**
+ * TODO: Get all courses of user then return to angular 
+ * @param: input email in json
+ */
+router.post('/get-courses-of-user', verifyToken, async (req, res) =>{
+   let userData = req.body;
+   let coursesArray = [];
+
+   // TODO: Get user with email
+   // *input: email in json
+   let userfound = await User.findOne(userData);
+
+   for (let i = 0; i < userfound.courses.length; i++){
+      // TODO: Get event by id
+      let oneCourse = await Course.findById(userfound.courses[i]);
+      // TODO: Push event to return array
+      coursesArray.push(oneCourse);
+   }
+
+   // TODO: Return result to angular
+   res.status(200).send(coursesArray);
 })
 
 module.exports = router

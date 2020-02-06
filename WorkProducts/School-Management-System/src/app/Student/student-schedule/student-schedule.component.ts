@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../utils/services/auth.service';
 import { EventService } from 'src/app/utils/services/event.service';
 import { CalendarTypeDay, CalendarTypeMonth, Event } from 'calendar-scheduler';
-import { tap, map } from 'rxjs/operators';
+import { Course } from 'event-progress';
 
 @Component({
   selector: 'app-student-schedule',
@@ -40,12 +40,16 @@ export class StudentScheduleComponent implements OnInit {
    * * If role is not admin or student then back to login
    */
   ngOnInit() {
-    console.log(sessionStorage.getItem('role'));
+    // console.log(sessionStorage.getItem('role'));
     if ((!this._auth.isAdmin()) && (!this._auth.isStudent())){
       this._router.navigate(['/login']);
     } else {
       /** Do nothing */
     }
+
+    // TODO: Initialize all variables to empty
+    this._calendarTypeMonth.events = [];
+    this._calendarTypeDay.events = [];
 
     // TODO: Set month and year
     var d = new Date();
@@ -59,12 +63,61 @@ export class StudentScheduleComponent implements OnInit {
   async getEvents(){
     let email = sessionStorage.getItem('email')
 
+    // TODO: Call get all courses of user API
+    this._eventService.getCoursesOfUser({email})
+      .subscribe(
+        res => {
+          for (let i = 0; i < res.length; i ++){
+            let newCourse = new Course();
+            
+            newCourse.courseid = res[i].courseid;
+            newCourse.name = res[i].name;
+            newCourse.startday = new Date(res[i].startday);
+            newCourse.endday = new Date(res[i].endday);
+            newCourse.starttime = res[i].starttime;
+            newCourse.endtime = res[i].endtime;
+            newCourse.frequency = res[i].frequency;
+
+            var eventDaysArray = [];
+            eventDaysArray = newCourse.getAllDayOfCourse();
+            
+            for (var j = 0; j < eventDaysArray.length; j++){
+
+              let newEvent = new Event();
+              newEvent.startdate = new Date(eventDaysArray[j]);
+              newEvent.enddate = new Date(eventDaysArray[j]);
+              newEvent.name = newCourse.name;
+              newEvent.note = "Course ID: " + newCourse.courseid;
+              newEvent.priority = "Medium";
+              newEvent.progress = "None";
+              newEvent.evendID = newCourse.courseid;
+              
+              // TODO: Set time
+              var array = [];
+              array = newCourse.starttime.split(":");
+              newEvent.startdate.setHours(array[0]);
+              newEvent.startdate.setMinutes(array[1]);
+
+              var arrayEnd = [];
+              arrayEnd = newCourse.endtime.split(":");
+              newEvent.enddate.setHours(arrayEnd[0]);
+              newEvent.enddate.setMinutes(arrayEnd[1]); 
+
+              // TODO: Push to events list
+              this._calendarTypeMonth.events.push(newEvent);
+            }
+          }
+        },
+        err =>{
+          console.log(err);
+        }
+      )
+
     // TODO: Call get all events of user API
     this._eventService.getEventsOfUser({email})
       .subscribe(
         res => {
           // TODO: Check if res is empty then exit
-          if (res.length <= 0) return;
           for (let i = 0; i < res.length; i++){
             let newEvent = new Event();
             newEvent.startdate = new Date(res[i].startdate);

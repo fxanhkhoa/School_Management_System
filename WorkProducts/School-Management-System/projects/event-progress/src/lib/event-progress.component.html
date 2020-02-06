@@ -1,11 +1,56 @@
 <div class="container">
     <!-- Course information -->
+    
     <div class="row" style="margin-bottom: 10px;">
         <div class="col">
-            id: {{course.courseid}}
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            id: {{course.courseid}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            name: {{course.name}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <!-- Content when expanded -->
+                    <div class="row">
+                        <div class="col">
+                            From: {{course.startday | date:'fullDate'}}
+                        </div>
+                        <div class="col">
+                            To: {{course.endday | date:'fullDate'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">Time: From {{course.starttime}} To {{course.endtime}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>Frequency</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-list>
+                                <div *ngFor="let item of course.frequency">
+                                    <mat-list-item>{{item}}</mat-list-item>
+                                    <mat-divider></mat-divider>
+                                </div>
+                            </mat-list>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
         </div>
+    </div>
+
+    <!-- Percentage -->
+    <div class="row">
         <div class="col">
-            name: {{course.name}}
+            <div class="percentage-text" style="color: #028a00;">
+                {{completedPercent | number}} %
+            </div>
         </div>
     </div>
 

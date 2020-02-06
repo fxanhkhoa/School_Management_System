@@ -27,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* Component */
 import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 import { HomeComponent } from './utils/home/home.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './utils/register/register.component';
 import { LoginComponent } from './utils/login/login.component';
 import { DashboardComponent } from './utils/dashboard/dashboard.component';
 /* Auth Service */
@@ -52,13 +52,15 @@ import { EventProgressModule } from 'event-progress';
 import { StudentScheduleComponent } from './Student/student-schedule/student-schedule.component';
 import { StudentProgressComponent } from './Student/student-progress/student-progress.component';
 import { CreateCourseComponent } from './utils/create-course/create-course.component';
+import { TeacherProgressComponent } from './teacher/teacher-progress/teacher-progress.component';
+import { TeacherScheduleComponent } from './teacher/teacher-schedule/teacher-schedule.component';
 
 /* define Route */
 const appRoutes: Routes = [
   // * Util link
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  { path: 'register-user', component: RegisterComponent, canActivate: [AuthGuard]},
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
@@ -88,6 +90,8 @@ const appRoutes: Routes = [
     CreateEventComponent,
     StudentProgressComponent,
     CreateCourseComponent,
+    TeacherProgressComponent,
+    TeacherScheduleComponent,
   ],
   imports: [
     BrowserModule,

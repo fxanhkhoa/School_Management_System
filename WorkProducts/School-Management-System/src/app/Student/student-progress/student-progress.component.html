@@ -1,10 +1,10 @@
-<div class="body-container">
+<div class="body-container" *ngIf="loaded">
+    <h1 style="text-align: center;" class="style-80s">COURSES</h1>
     <div class="container">
-        <p>student-progress works!</p>
         <fx-EventProgress
-            [course] = 'temp'
+            *ngFor="let oneCourse of listCourses"
+            [course] = 'oneCourse'
         >
-    
         </fx-EventProgress>
     </div>
 </div>

@@ -17,28 +17,61 @@
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>more_vert</mat-icon>
       </button>
+      
+      <!-- Main menu -->
       <mat-menu #menu="matMenu">
+        <!-- account -->
         <button mat-menu-item [matMenuTriggerFor]="account">
           <mat-icon>account_circle</mat-icon>
           <span>Account</span>
         </button>
-        <button mat-menu-item disabled>
-          <mat-icon>voicemail</mat-icon>
-          <span>Check voice mail</span>
+        <!-- user -->
+        <button mat-menu-item *ngIf="_authService.loggedIn() && _authService.isAdmin()" [matMenuTriggerFor]="user">
+          <mat-icon>person</mat-icon>
+          <span>User Function</span>
         </button>
-        <button mat-menu-item>
-          <mat-icon>phonelink_locks</mat-icon>
-          <span>Disable alerts</span>
+        <!-- event -->
+        <button mat-menu-item *ngIf="(_authService.loggedIn() && (_authService.isAdmin() || _authService.isTeacher()))" [matMenuTriggerFor]="event">
+          <mat-icon>event</mat-icon>
+          <span>Event Function</span>
+        </button>
+        <!-- course -->
+        <button mat-menu-item *ngIf="(_authService.loggedIn() && (_authService.isAdmin() || _authService.isTeacher()))" [matMenuTriggerFor]="course">
+          <mat-icon>event</mat-icon>
+          <span>Course Function</span>
         </button>
       </mat-menu>
+
+      <!-- For account Function -->
       <mat-menu #account="matMenu">
         <button mat-menu-item *ngIf="!_authService.loggedIn()" [routerLink]="'/login'">
           <span>Login</span>
         </button>
-        <button mat-menu-item *ngIf="_authService.loggedIn()" [routerLink]="'/register'">
-          <span>Register Student</span>
-        </button>
         <button mat-menu-item *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Logout</button>
+      </mat-menu>
+
+      <!-- For user Function -->
+      <mat-menu #user="matMenu">
+        <button mat-menu-item [routerLink]="'/register-user'">
+          <mat-icon>person_add</mat-icon>
+          <span>Register User</span>
+        </button>
+      </mat-menu>
+
+      <!-- For event Function -->
+      <mat-menu #event="matMenu">
+        <button mat-menu-item [routerLink]="'/create-event'">
+          <mat-icon>add_circle_outline</mat-icon>
+          <span>Create Event</span>
+        </button>
+      </mat-menu>
+
+      <!-- For course Function -->
+      <mat-menu #course="matMenu">
+        <button mat-menu-item [routerLink]="'/create-course'">
+          <mat-icon>add_circle_outline</mat-icon>
+          <span>Create Course</span>
+        </button>
       </mat-menu>
     </mat-toolbar-row>
   
@@ -67,7 +100,7 @@
           </a>
         </div>
 
-        <a mat-list-item [routerLink]="'/dashboard'"> Dashboard </a>
+        <a mat-list-item [routerLink]="'/dashboard'"><mat-icon>dashboard</mat-icon><span>Dashboard</span></a>
         <!-- <a mat-list-item [routerLink]="'/create-account'"> Create Account </a>
         <a mat-list-item [routerLink]="'/contacts'"> Contacts </a>
         <a mat-list-item [routerLink]="'/create-contact'"> Create Contact </a>
