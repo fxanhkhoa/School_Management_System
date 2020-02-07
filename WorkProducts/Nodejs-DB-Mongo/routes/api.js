@@ -42,6 +42,8 @@ router.get('/', (req, res) => {
    res.send('From API Route')
 })
 
+// *USER
+// ** Register a user
 router.post('/register-user', (req, res) =>{
    let userData = req.body
    var user = new User(userData)
@@ -53,6 +55,7 @@ router.post('/register-user', (req, res) =>{
 
    User.findOne({email: userData.email}, (error, foundUser) =>{
       if (error){
+         res.status(500).send("Internal error");
          console.log(error)
       } else {
          // TODO: Check if email existed
@@ -73,6 +76,22 @@ router.post('/register-user', (req, res) =>{
          }
       }
    });
+})
+
+// ** Get info of a user
+router.post('/get-user-info', async (req, res) =>{
+   let userData = req.body;
+   // console.log(userData)
+   User.findOne({email: userData.email}, (error, foundUser) =>{
+      if (error){
+         res.status(500).send("Server Internal Error");
+      } 
+      else {
+         foundUser.password = "xxx";
+         foundUser.role = "xxx";
+         res.status(201).send(foundUser);
+      }
+   })
 })
 
 router.post('/login', (req, res) =>{
@@ -101,20 +120,6 @@ router.post('/login', (req, res) =>{
    })
 })
 
-router.get('/events', (req, res) =>{
-   let events = [
-
-   ]
-   res.json(events)
-})
-
-router.get('/special', (req, res) =>{
-   let events = [
-
-   ]
-   res.json(events)
-})
-
 router.get('/dashboard', verifyToken, (req, res) =>{
    let data = [
       {
@@ -139,6 +144,8 @@ router.post('/create-event', verifyToken, (req, res) =>{
    let eventData = req.body
    let event = new Event()
 
+   // console.log(eventData)
+
    // TODO: get data of event (exclude involvers)
    event.startdate = eventData.startDate
    event.enddate = eventData.endDate
@@ -149,6 +156,13 @@ router.post('/create-event', verifyToken, (req, res) =>{
    event.priority = eventData.priority
    event.type = eventData.type
    event.location = eventData.location
+
+   // TODO: Add involver's email to involvers
+   for (let i = 0; i < eventData.involver.length; i++){
+      event.involvers.push(eventData.involver[i].email);
+   }
+
+   // console.log(event.involvers);
 
    // TODO: Save event to Database
    event.save((error, savedEvent) =>{
@@ -278,6 +292,11 @@ router.post('/create-course', verifyToken, async(req, res) =>{
          }
          if (userData.sunday == true){
             courseData.frequency.push("sunday");
+         }
+
+         // TODO: Add involvers' email
+         for (let i = 0; i < userData.involver.length; i++){
+            courseData.involvers.push(userData.involver[i].email);
          }
 
          // TODO: Save course data to database

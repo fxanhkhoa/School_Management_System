@@ -6,6 +6,7 @@ export class Course {
     starttime: String;
     endtime: String;
     frequency: String[] = [];
+    involvers: any[] = [];
 
     dayOfWeek = [
         'sunday',

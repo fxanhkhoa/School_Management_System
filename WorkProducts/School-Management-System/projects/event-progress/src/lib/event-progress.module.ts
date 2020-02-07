@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { EventProgressComponent } from './event-progress.component';
 
 import { MatProgressBarModule, MatExpansionModule, MatListModule, MatDividerModule } from '@angular/material';
+import { MatTableModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -11,7 +12,8 @@ import { CommonModule } from '@angular/common';
     MatExpansionModule,
     MatListModule,
     MatDividerModule,
-    CommonModule
+    CommonModule,
+    MatTableModule
   ],
   exports: [EventProgressComponent]
 })

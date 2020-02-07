@@ -30,6 +30,8 @@
                             <strong>Frequency</strong>
                         </div>
                     </div>
+
+                    <!-- Frequency -->
                     <div class="row">
                         <div class="col">
                             <mat-list>
@@ -39,6 +41,19 @@
                                 </div>
                             </mat-list>
                         </div>
+                    </div>
+
+                    <!-- Course involvers (Expandable Table) -->
+                    <div class="row">
+                        <mat-table
+                            [dataSource]="dataSource" multiTemplateDataRows
+                            class="mat-elevation-z8"
+                        >
+                            <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                            </ng-container>
+                        </mat-table>
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>

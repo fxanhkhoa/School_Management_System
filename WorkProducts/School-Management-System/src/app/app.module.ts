@@ -68,6 +68,9 @@ const appRoutes: Routes = [
   // * Student link
   { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
   { path: 'student-progress', component: StudentProgressComponent, canActivate: [AuthGuard]},
+  // * Teacher link
+  { path: 'teacher-schedule', component: TeacherScheduleComponent, canActivate: [AuthGuard]},
+  { path: 'teacher-progress', component: TeacherProgressComponent, canActivate: [AuthGuard]},
   // * Default link
   {
     path: '',

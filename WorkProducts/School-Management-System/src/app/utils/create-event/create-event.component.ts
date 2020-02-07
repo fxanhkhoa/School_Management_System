@@ -102,7 +102,7 @@ export class CreateEventComponent implements OnInit {
     d.setHours(array[0]);
     d.setMinutes(array[1]);
     this.createEventGroup.value.endDate = d.toString();
-    console.log(this.createEventGroup.value);
+    // console.log(this.createEventGroup.value);
     this._event.createEvent(this.createEventGroup.value)
       .subscribe(
         res => {

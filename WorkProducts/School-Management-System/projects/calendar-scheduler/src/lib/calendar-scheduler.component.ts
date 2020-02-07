@@ -51,13 +51,13 @@ export class CalendarSchedulerComponent implements OnInit {
   ];
 
   dayStr: String[] = [
+    'Sunday',
     'Monday',
     'Tuesday',
     'Wednesday',
     'Thushday',
     'Friday',
     'Saturday',
-    'Sunday'
   ];
 
   today: Date;

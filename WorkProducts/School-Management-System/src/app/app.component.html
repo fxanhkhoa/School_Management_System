@@ -85,28 +85,58 @@
     <mat-sidenav #sidenav>
       <mat-nav-list>
         
-        <button mat-button href="#item-student" class="list-group-item" data-toggle="collapse">
-          <mat-icon>perm_identity</mat-icon>
-          <span>STUDENT</span>
-          <mat-icon>expand_more</mat-icon>
-        </button>
-        <div class="list-group collapse" id="item-student">
-          <a *ngIf="(_authService.isAdmin()) || (_authService.isStudent())" [routerLink]="'/student-schedule'" class="list-group-item" data-toggle="collapse">
-            <span>Schedule</span>
-            <!-- <span>{{_authService.isAdmin()}}</span> -->
-          </a>
-          <a *ngIf="(_authService.isAdmin()) || (_authService.isStudent())" [routerLink]="'/student-progress'" class="list-group-item" data-toggle="collapse">
-            <span>Classes' Progress</span>
-          </a>
+        <div mat-list-item>
+          <button mat-button href="#item-student" class="list-group-item" data-toggle="collapse">
+            <mat-icon>perm_identity</mat-icon>
+            <span>STUDENT</span>
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <div class="list-group collapse" id="item-student">
+            <a *ngIf="(_authService.isAdmin()) || (_authService.isStudent())" [routerLink]="'/student-schedule'" class="list-group-item" data-toggle="collapse">
+              <span>Schedule</span>
+              <!-- <span>{{_authService.isAdmin()}}</span> -->
+            </a>
+            <a *ngIf="(_authService.isAdmin()) || (_authService.isStudent())" [routerLink]="'/student-progress'" class="list-group-item" data-toggle="collapse">
+              <span>Classes' Progress</span>
+            </a>
+          </div>
         </div>
 
-        <a mat-list-item [routerLink]="'/dashboard'"><mat-icon>dashboard</mat-icon><span>Dashboard</span></a>
+        <div mat-list-item>
+          <button mat-button href="#item-teacher" class="list-group-item" data-toggle="collapse">
+            <mat-icon>perm_identity</mat-icon>
+            <span>TEACHER</span>
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <div class="list-group collapse" id="item-teacher">
+            <a *ngIf="(_authService.isAdmin()) || (_authService.isTeacher())" [routerLink]="'/teacher-schedule'" class="list-group-item" data-toggle="collapse">
+              <span>Schedule</span>
+              <!-- <span>{{_authService.isAdmin()}}</span> -->
+            </a>
+            <a *ngIf="(_authService.isAdmin()) || (_authService.isTeacher())" [routerLink]="'/teacher-progress'" class="list-group-item" data-toggle="collapse">
+              <span>Classes' Progress</span>
+            </a>
+          </div>
+        </div>
+        
+        <div mat-list-item [routerLink]="'/dashboard'">
+          <button mat-button>
+            <mat-icon style="color: #7570fa;">dashboard</mat-icon>
+            <span>DASHBOARD</span>
+          </button>
+        </div>
+        
         <!-- <a mat-list-item [routerLink]="'/create-account'"> Create Account </a>
         <a mat-list-item [routerLink]="'/contacts'"> Contacts </a>
         <a mat-list-item [routerLink]="'/create-contact'"> Create Contact </a>
         <a mat-list-item [routerLink]="'/activities'"> Activities </a>
         <a mat-list-item [routerLink]="'/create-activity'"> Create Activity </a> -->
-        <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+        <div mat-list-item (click)="sidenav.toggle()">
+          <button mat-button>
+            <mat-icon style="color: #7570fa;">close</mat-icon>
+            <span style="opacity: 40%;">CLOSE</span>
+          </button>
+        </div>
   
       </mat-nav-list>
 

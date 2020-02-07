@@ -9,6 +9,7 @@ const courseSchema = new Schema({
     starttime: String,
     endtime: String,
     frequency: [String],
+    involvers: [String], // Email of User
 })
 
 module.exports = mongoose.model('course', courseSchema, 'courses')

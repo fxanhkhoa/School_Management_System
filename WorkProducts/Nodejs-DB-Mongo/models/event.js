@@ -10,7 +10,8 @@ const eventSchema = new Schema({
     progress: String,
     priority: String,
     type: String,
-    location: String
+    location: String,
+    involvers: [String], // email of user
 })
 
 module.exports = mongoose.model('event', eventSchema, 'events')
