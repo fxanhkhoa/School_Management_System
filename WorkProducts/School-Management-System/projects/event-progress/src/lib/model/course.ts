@@ -8,7 +8,7 @@ export class Course {
     starttime: String;
     endtime: String;
     frequency: String[] = [];
-    involvers: User[] = [];
+    involvers: any[] = [];
 
     dayOfWeek = [
         'sunday',

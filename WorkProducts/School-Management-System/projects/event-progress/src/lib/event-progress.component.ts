@@ -40,12 +40,15 @@ export class EventProgressComponent implements OnInit {
 
   ngOnInit() {
     this.completedPercent = this.course.getCompletedPercent();
-    // console.log(this.course);
-    // console.log(this.course.involvers);
+    console.log(this.course);
+    let jsonStr = JSON.stringify(this.course);
+    console.log(JSON.stringify(this.course));
+    this.course = JSON.parse(jsonStr);
+    console.log(this.course.involvers.length);
 
     this.course.involvers.forEach(function(item, index, array){
       console.log('one');
-      console.log(element);
+      console.log(item, index, array);
     })
 
     this.loaded = true;
