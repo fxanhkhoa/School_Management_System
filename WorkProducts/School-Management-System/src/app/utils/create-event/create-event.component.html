@@ -37,7 +37,7 @@
                                 required
                             >
                             <mat-error *ngIf="createEventGroup.get('startTime')?.hasError('required')">
-                                End Time is <strong>required</strong>
+                                Start Time is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -101,6 +101,9 @@
                                 formControlName="name"
                                 required
                             >
+                            <mat-error *ngIf="createEventGroup.get('name')?.hasError('required')">
+                                Event name is <strong>required</strong>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -250,7 +253,7 @@
                             </mat-chip-list>
                             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                                 <mat-option *ngFor="let oneInvolever of filteredInvoleUsers | async" [value]="oneInvolever">
-                                  {{oneInvolever.fullname}}
+                                  {{oneInvolever.fullname}} || {{oneInvolever.email}}
                                 </mat-option>
                             </mat-autocomplete>
                         </mat-form-field>
@@ -258,7 +261,7 @@
                 </div>
                 <div class="stepper-element">
                     <button mat-raised-button color="primary" matStepperPrevious>Back</button>
-                    <button mat-raised-button color="warn" (click)="CreateEvent()">Create</button>
+                    <button mat-raised-button color="warn" [disabled]="!createEventGroup.valid" (click)="CreateEvent()">Create</button>
                 </div>
             </mat-step>
         </mat-horizontal-stepper>

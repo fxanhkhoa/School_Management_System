@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 const User = require('../models/user')
 const Event = require('../models/event')
-const Student = require('../models/student')
+const Course = require('../models/course')
 const mongoose = require('mongoose')
 const db = "mongodb://myAdmin:myAdmin@localhost:27017/school-management-system"
 
@@ -42,31 +42,54 @@ router.get('/', (req, res) => {
    res.send('From API Route')
 })
 
-router.post('/register', (req, res) =>{
+// *USER
+// ** Register a user
+router.post('/register-user', (req, res) =>{
    let userData = req.body
-   let user = new User(userData)
+   var user = new User(userData)
 
-   user.findOne({email: userData.email}, (error, user) =>{
+   // console.log(userData)
+
+   user.events = []
+   user.courses = []
+
+   User.findOne({email: userData.email}, (error, foundUser) =>{
       if (error){
+         res.status(500).send("Internal error");
          console.log(error)
       } else {
-         if (user){
+         // TODO: Check if email existed
+         if (foundUser){
             res.status(409).send("email existed");
             return;
          }
          else{
-            /** Do Nothing */
+            user.save((error, registeredUser) => {
+               if (error){
+                  console.log(error)
+               } else {
+                  let payload = { subject: registeredUser._id }
+                  let token = jwt.sign(payload, 'secretKey')
+                  res.status(200).send({token})
+               }
+            })
          }
       }
    });
+})
 
-   user.save((error, registeredUser) => {
+// ** Get info of a user
+router.post('/get-user-info', async (req, res) =>{
+   let userData = req.body;
+   // console.log(userData)
+   User.findOne({email: userData.email}, (error, foundUser) =>{
       if (error){
-         console.log(error)
-      } else {
-         let payload = { subject: registeredUser._id }
-         let token = jwt.sign(payload, 'secretKey')
-         res.status(200).send({token})
+         res.status(500).send("Server Internal Error");
+      } 
+      else {
+         foundUser.password = "xxx";
+         foundUser.role = "xxx";
+         res.status(201).send(foundUser);
       }
    })
 })
@@ -97,20 +120,6 @@ router.post('/login', (req, res) =>{
    })
 })
 
-router.get('/events', (req, res) =>{
-   let events = [
-
-   ]
-   res.json(events)
-})
-
-router.get('/special', (req, res) =>{
-   let events = [
-
-   ]
-   res.json(events)
-})
-
 router.get('/dashboard', verifyToken, (req, res) =>{
    let data = [
       {
@@ -135,18 +144,58 @@ router.post('/create-event', verifyToken, (req, res) =>{
    let eventData = req.body
    let event = new Event()
 
-   console.log(eventData)
+   // console.log(eventData)
+
+   // TODO: get data of event (exclude involvers)
    event.startdate = eventData.startDate
    event.enddate = eventData.endDate
+   event.name = eventData.name
+   event.content = eventData.content
+   event.note = eventData.note
+   event.progress = eventData.progress
+   event.priority = eventData.priority
+   event.type = eventData.type
+   event.location = eventData.location
 
-   // event.save((error, savedEvent) =>{
-   //    if (error){
-   //       console.log(error);
-   //       res.status(204).send("Some Error");
-   //    } else {
-   //       res.status(201).send(savedEvent);
-   //    }
-   // });
+   // TODO: Add involver's email to involvers
+   for (let i = 0; i < eventData.involver.length; i++){
+      event.involvers.push(eventData.involver[i].email);
+   }
+
+   // console.log(event.involvers);
+
+   // TODO: Save event to Database
+   event.save((error, savedEvent) =>{
+      if (error){
+         console.log(error);
+         res.status(204).send("Some Error");
+      } else {
+         // TODO: Push event to users involved 
+         eventData.involver.forEach(element => {
+
+            // TODO: Get current events and push new event to
+            User.findById(element._id, function(err, user){
+               
+               // TODO: Check if user got this event or not
+               if (!user.events.includes(savedEvent._id)){
+                  user.events.push(savedEvent._id);
+                  user.save((error, savedUser) =>{
+                     if (error){
+                        //** Raise Error */
+                        console.log(error)
+                     } else {
+                        //** Do nothing */
+                        // console.log("success")
+                     }
+                  });
+               }
+            })
+         });
+
+         // TODO: Return status to angular
+         res.status(201).send(savedEvent);
+      }
+   });
 });
 
 /**
@@ -162,6 +211,151 @@ router.get('/get-users', verifyToken, (req, res) =>{
          res.status(200).send(users);
       }
    })
+})
+
+/**
+ * TODO: get all events of user then return to angular
+ * @param: input email in json
+ */
+router.post('/get-events-of-user', verifyToken, async (req, res) =>{
+   let userData = req.body;
+   var eventsArray = [];
+
+   // TODO: Get user with email
+   // *input: email in json
+   let userfound = await User.findOne(userData)
+   // console.log(userfound);
+
+   // TODO: get each event information
+   
+   for (let i = 0; i < userfound.events.length; i++){
+      // TODO: Get event by id
+      let oneEvent = await Event.findById(userfound.events[i]);
+      // TODO: Push event to return array
+      eventsArray.push(oneEvent);
+   }
+
+   // TODO: Return result to angular
+   res.status(200).send(eventsArray);
+})
+
+/**
+ * TODO: Create new course
+ * @param: input model course
+ */
+router.post('/create-course', verifyToken, async(req, res) =>{
+
+   let userData = req.body;
+
+   // TODO: Initialize Course schema
+   let courseData = new Course();
+
+   // TODO: Check same existed ID
+   Course.findOne({courseid: userData.courseid}, function(error, onecourse){
+      if (error){
+         // * 500: Internal Server Error
+         res.status(500).send("fail");
+      }
+      // ! existed course id
+      else if (onecourse){ 
+         // * 409 : conflict status
+         res.status(409).send("fail");
+      }
+      // * course id not existed
+      // TODO: Add Course and involvers
+      else {
+         // TODO: Put value into courseData
+         courseData.courseid = userData.courseid
+         courseData.name = userData.coursename
+         courseData.startday = userData.startday
+         courseData.endday = userData.endday
+         courseData.starttime = userData.starttime
+         courseData.endtime = userData.endtime
+
+         if (userData.monday == true){
+            courseData.frequency.push("monday");
+         }
+         if (userData.tuesday == true){
+            courseData.frequency.push("tuesday");
+         }
+         if (userData.wednesday == true){
+            courseData.frequency.push("wednesday");
+         }
+         if (userData.thursday == true){
+            courseData.frequency.push("thursday");
+         }
+         if (userData.friday == true){
+            courseData.frequency.push("friday");
+         }
+         if (userData.saturday == true){
+            courseData.frequency.push("saturday");
+         }
+         if (userData.sunday == true){
+            courseData.frequency.push("sunday");
+         }
+
+         // TODO: Add involvers' email
+         for (let i = 0; i < userData.involver.length; i++){
+            courseData.involvers.push(userData.involver[i].email);
+         }
+
+         // TODO: Save course data to database
+         courseData.save((error, savedCourse) =>{
+            if (error){
+               // * 500: Interal Server Errro
+               res.status(500).send("Error");
+            } else {
+               // TODO: Push course to involvers
+               userData.involver.forEach(element =>{
+                  // TODO: Get current events and push new event to
+                  User.findById(element._id, function(err, user){
+                     // TODO: Check if user got this event or not
+                     if (!user.courses.includes(savedCourse._id)){
+                        user.courses.push(savedCourse._id);
+                        user.save((error, savedUser) =>{
+                           if (error){
+                              //** Raise Error */
+                              console.log(error)
+                           } else {
+                              //** Do nothing */
+                              // console.log("success")
+                           }
+                        });
+                     }
+                  })
+               })
+
+               // TODO: Return status to angular
+               res.status(201).send(savedCourse);
+            }
+         })
+      }
+   })
+
+      
+})
+
+/**
+ * TODO: Get all courses of user then return to angular 
+ * @param: input email in json
+ */
+router.post('/get-courses-of-user', verifyToken, async (req, res) =>{
+   let userData = req.body;
+   let coursesArray = [];
+
+   // TODO: Get user with email
+   // *input: email in json
+   let userfound = await User.findOne(userData);
+
+   for (let i = 0; i < userfound.courses.length; i++){
+      // TODO: Get event by id
+      let oneCourse = await Course.findById(userfound.courses[i]);
+      // TODO: Push event to return array
+      coursesArray.push(oneCourse);
+   }
+
+   // TODO: Return result to angular
+   res.status(200).send(coursesArray);
 })
 
 module.exports = router

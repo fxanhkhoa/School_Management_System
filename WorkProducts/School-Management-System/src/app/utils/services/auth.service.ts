@@ -7,7 +7,7 @@ import { Router } from '@angular/router'
 })
 export class AuthService {
   
-  private _registerUrl = "http://localhost:3000/api/register"
+  private _registerUrl = "http://localhost:3000/api/register-user"
   private _loginUrl = "http://localhost:3000/api/login"
   private _reloadUrl = "http://localhost:3000/api/reload"
   private static role;
@@ -36,18 +36,32 @@ export class AuthService {
   }
 
   isAdmin(){
-    if (AuthService.role == "admin"){
-      return true
-    } else{
-      return false
+    // if (AuthService.role == "admin"){
+    //   return true
+    // } else{
+    //   return false
+    // }
+
+    if (sessionStorage.getItem('role') == 'admin'){
+      return true;
+    } else {
+      return false;
     }
   }
 
   isStudent(){
-    if (AuthService.role == "student"){
-      return true
-    } else{
-      return false
+    if (sessionStorage.getItem('role') == 'student'){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isTeacher(){
+    if (sessionStorage.getItem('role') == 'teacher'){
+      return true;
+    } else {
+      return false;
     }
   }
 

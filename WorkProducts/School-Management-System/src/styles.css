@@ -2,3 +2,13 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.success-snake{
+    background: rgb(2,215,62);
+    background: linear-gradient(90deg, rgba(2,215,62,1) 0%, rgba(120,219,92,1) 41%, rgba(0,149,12,1) 100%);
+}
+
+.fail-snake{
+    background: rgb(255,0,0);
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(219,117,92,1) 41%, rgba(149,0,0,1) 100%);
+}

@@ -96,12 +96,21 @@
 
 
   <!-- Calendar Type One Month -->
-  <div *ngIf="type == 'CalendarTypeMonth'">
+  <div *ngIf="type == 'CalendarTypeMonth'" class="calendar-body">
     <div class="row" style="padding-left: 25px;">
-      <h1>{{calendarTypeMonth.selectedMonth}}/{{calendarTypeMonth.selectedYear}}</h1>
+      <h1 class="style-80s">{{calendarTypeMonth.selectedMonth}}/{{calendarTypeMonth.selectedYear}}</h1>
     </div>
     <div style="padding-left: 7px !important; padding-right: 5px !important;">
       <mat-grid-list cols="7" rowHeight="75px" >
+
+        <!-- Fill mon, tue, wed, ... -->
+        <mat-grid-tile
+          *ngFor="let item of dayStr"
+          [colspan]="1"
+          [rowspan]="1"
+        >
+        <button mat-raised-button color="primary">{{item}}</button>
+        </mat-grid-tile>
 
         <!-- Fill blank days -->
         <mat-grid-tile
@@ -175,7 +184,7 @@
 
 <!-- Template -->
 <ng-template #template>
-  <div style="background-color:rgba(191, 191, 191, 0.85);">
+  <div style="background-color:rgba(235, 196, 0, 0.85);">
     <mat-list >
       <!-- Body Content -->
         <!-- Time -->

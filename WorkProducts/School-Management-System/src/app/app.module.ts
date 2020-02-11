@@ -11,7 +11,7 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatBu
 import { MatRadioModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
 import { MatStepperModule, MatAutocompleteModule, MatSelectModule, MatGridListModule } from '@angular/material';
 import { MatCardModule, MatExpansionModule, MatTooltipModule, MatButtonToggleModule } from '@angular/material';
-import { MatChipsModule } from '@angular/material';
+import { MatChipsModule, MatCheckboxModule, MatSnackBarModule } from '@angular/material';
 
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
@@ -27,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* Component */
 import { PageNotFoundComponent } from './utils/page-not-found/page-not-found.component';
 import { HomeComponent } from './utils/home/home.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './utils/register/register.component';
 import { LoginComponent } from './utils/login/login.component';
 import { DashboardComponent } from './utils/dashboard/dashboard.component';
 /* Auth Service */
@@ -39,21 +39,39 @@ import { EventService }  from './utils/services/event.service';
 import { TokenInterceptorService } from './utils/services/token-interceptor.service';
 import { AddStudentComponent } from './add-student/add-student.component';
 
+/**
+ * * Util import
+ */
+import { CreateEventComponent } from './utils/create-event/create-event.component';
+
+
 /* Library */
 import { CalendarSchedulerModule } from 'calendar-scheduler';
+import { EventProgressModule } from 'event-progress';
 /** Student Schedule Component */
 import { StudentScheduleComponent } from './Student/student-schedule/student-schedule.component';
-import { CreateEventComponent } from './utils/create-event/create-event.component';
+import { StudentProgressComponent } from './Student/student-progress/student-progress.component';
+import { CreateCourseComponent } from './utils/create-course/create-course.component';
+import { TeacherProgressComponent } from './teacher/teacher-progress/teacher-progress.component';
+import { TeacherScheduleComponent } from './teacher/teacher-schedule/teacher-schedule.component';
 
 /* define Route */
 const appRoutes: Routes = [
+  // * Util link
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  { path: 'register-user', component: RegisterComponent, canActivate: [AuthGuard]},
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
   { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
+  { path: 'create-course', component: CreateCourseComponent, canActivate: [AuthGuard]},
+  // * Student link
+  { path: 'student-schedule', component: StudentScheduleComponent, canActivate: [AuthGuard]},
+  { path: 'student-progress', component: StudentProgressComponent, canActivate: [AuthGuard]},
+  // * Teacher link
+  { path: 'teacher-schedule', component: TeacherScheduleComponent, canActivate: [AuthGuard]},
+  { path: 'teacher-progress', component: TeacherProgressComponent, canActivate: [AuthGuard]},
+  // * Default link
   {
     path: '',
     redirectTo: '/home',
@@ -73,6 +91,10 @@ const appRoutes: Routes = [
     AddStudentComponent,
     StudentScheduleComponent,
     CreateEventComponent,
+    StudentProgressComponent,
+    CreateCourseComponent,
+    TeacherProgressComponent,
+    TeacherScheduleComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,9 +106,10 @@ const appRoutes: Routes = [
     ),
     FormsModule,
     HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
     ReactiveFormsModule,
+    // * Angular material Modules
+    MatInputModule,
+    MatFormFieldModule,
     MatToolbarModule, 
     MatIconModule, 
     MatSidenavModule, 
@@ -99,13 +122,18 @@ const appRoutes: Routes = [
     MatStepperModule, 
     MatAutocompleteModule,
     MatSelectModule,
-    CalendarSchedulerModule,
     MatGridListModule,
     MatCardModule,
     MatExpansionModule,
     MatTooltipModule,
     MatButtonToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    
+    // * Owned Library Module
+    CalendarSchedulerModule,
+    EventProgressModule
   ],
   providers: [AuthService, AuthGuard, EventService,
   {

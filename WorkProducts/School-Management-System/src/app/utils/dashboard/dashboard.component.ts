@@ -89,6 +89,8 @@ export class DashboardComponent implements OnInit {
     this._calendarTypeMonth.events.push(this._event);
     this._calendarTypeMonth.events.push(this._event);
 
+    console.log(this._calendarTypeMonth.events);
+
     // this._eventService.createEvent(this._event)
     //     .subscribe(
     //       res => console.log(res),
