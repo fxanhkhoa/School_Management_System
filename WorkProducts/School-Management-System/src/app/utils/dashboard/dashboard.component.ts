@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 /** Calendar Model */
 import { Event, CalendarTypeDay, CalendarTypeMonth } from 'calendar-scheduler';
+import { Course } from 'event-progress';
 
 export interface Tile {
   color: string;
@@ -42,6 +43,8 @@ export class DashboardComponent implements OnInit {
   _calendarTypeDay = new CalendarTypeDay();
   _calendarType = 'CalendarTypeMonth';
   _calendarTypeMonth = new CalendarTypeMonth();
+
+  _course = new Course();
 
   constructor(private _eventService: EventService,
               private _router: Router) { }
@@ -96,6 +99,11 @@ export class DashboardComponent implements OnInit {
     //       res => console.log(res),
     //       err => console.log(err)
     //     )
+
+    this._course.courseid = "aaa";
+    this._course.name = "BBB";
+    
+
   }
 
   DayDetailView(event){

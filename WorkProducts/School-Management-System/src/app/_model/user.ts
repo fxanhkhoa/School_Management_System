@@ -1,6 +1,11 @@
 export class User {
-   email: string;
-   password: string;
-   role: string;
-   token?: string;
+   email: String;
+   password: String;
+   role: String;
+   fullname: String;
+   gender: String;
+   birthday: Date;
+   kpi: String;
+   events: [String];
+   courses: [String];
 }

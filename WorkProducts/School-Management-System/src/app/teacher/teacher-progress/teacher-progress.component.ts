@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/utils/services/auth.service';
 import { Router } from '@angular/router';
-import { Course } from 'event-progress';
+import { Course, User } from 'event-progress';
 import { EventService } from 'src/app/utils/services/event.service';
 
 @Component({
@@ -68,15 +68,20 @@ export class TeacherProgressComponent implements OnInit {
               this._eventService.getUserInfo({email: res[i].involvers[j]})
                 .subscribe(
                   res =>{
+                    let newUser = new User()
+                    newUser.email = res.email;
+                    newUser.fullname = res.fullname;
+                    newUser.birthday = res.birthday;
+                    newUser.gender = res.gender;
+                    newUser.kpi = res.kpi;
                     // console.log(res)
-                      newCourse.involvers.push(res);
+                      newCourse.involvers.push(newUser);
                   },
                   err => console.log(err)
                 )
             }
 
             this.listCourses.push(newCourse);
-            // console.log(newCourse);
           }
           // TODO: Signal to load UI
           // ! Need to do here because this is asynchronous thread

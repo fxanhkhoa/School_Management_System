@@ -9,3 +9,4 @@ export * from './lib/event-progress.component';
 export * from './lib/event-progress.module';
 
 export * from './lib/model/course';
+export * from './lib/model/user';

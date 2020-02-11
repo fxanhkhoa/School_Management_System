@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export class Course {
     courseid: String;
     name: String;
@@ -6,7 +8,7 @@ export class Course {
     starttime: String;
     endtime: String;
     frequency: String[] = [];
-    involvers: any[] = [];
+    involvers: User[] = [];
 
     dayOfWeek = [
         'sunday',

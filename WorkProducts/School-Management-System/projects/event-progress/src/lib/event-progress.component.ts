@@ -34,10 +34,21 @@ export class EventProgressComponent implements OnInit {
   columnsToDisplay = ['fullname', 'email'];
   expandedElement: Course | null;
 
+  loaded = false;
+
   constructor() { }
 
   ngOnInit() {
     this.completedPercent = this.course.getCompletedPercent();
+    // console.log(this.course);
+    // console.log(this.course.involvers);
+
+    this.course.involvers.forEach(function(item, index, array){
+      console.log('one');
+      console.log(element);
+    })
+
+    this.loaded = true;
   }
 
 }
