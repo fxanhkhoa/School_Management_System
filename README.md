@@ -1,13 +1,13 @@
 # School_Management_System
 
 ## Feature
-[x] Calendar Scheduler
-[x] Courses Progress
-[] Attendance system
-[] E-learning
-[x] Courses Management
-[x] Events Management
-[] Booking System
+- [x] Calendar Scheduler
+- [x] Courses Progress
+- [ ] Attendance system
+- [ ] E-learning
+- [x] Courses Management
+- [x] Events Management
+- [ ] Booking System
 
 ## Technology using
 * Front-End
