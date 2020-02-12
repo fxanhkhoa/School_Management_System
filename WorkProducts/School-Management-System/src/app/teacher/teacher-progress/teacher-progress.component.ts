@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/utils/services/auth.service';
 import { Router } from '@angular/router';
 import { Course, User } from 'event-progress';
 import { EventService } from 'src/app/utils/services/event.service';
 import { BehaviorSubject } from 'rxjs';
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-teacher-progress',
@@ -24,8 +23,8 @@ export class TeacherProgressComponent implements OnInit {
     'saturday',
   ];
 
-  listCourses: Course[] = [];
-  listInvovler = [];
+  public listCourses: Course[] = [];
+  public listInvolvers: any[] = [];
 
   loaded = false;
   loadedInvolver = false;
@@ -41,69 +40,92 @@ export class TeacherProgressComponent implements OnInit {
   /**
    * TODO: Check role is 'admin' or 'teacher'
    */
-  async ngOnInit() {
+  ngOnInit() {
     if ((!this._auth.isAdmin()) && (!this._auth.isTeacher())){
       this._router.navigate(['/login']);
     } else {
       /** Do nothing */
     }
 
-    await this.getCourses();
-
-    
+    this.getCourses();
   }
 
 
-  async getCourses(){
+  getCourses(){
     let email = sessionStorage.getItem('email')
 
     // TODO: Get Courses
     this._eventService.getCoursesOfUser({email})
       .subscribe(
-        async res =>{
+        res =>{
           // console.log(res);
-          for (let i = 0; i < res.length; i++){
+          for (let i = 0; i < res.coursesArray.length; i++){
             let newCourse = new Course();
             
-            newCourse.courseid = res[i].courseid;
-            newCourse.name = res[i].name;
-            newCourse.startday = new Date(res[i].startday);
-            newCourse.endday = new Date(res[i].endday);
-            newCourse.starttime = res[i].starttime;
-            newCourse.endtime = res[i].endtime;
-            newCourse.frequency = res[i].frequency;
-
-            // TODO: get invovler info
-            for (let j = 0; j < res[i].involvers.length; j++){
-              this._eventService.getUserInfo({email: res[i].involvers[j]})
-                .subscribe(
-                  res =>{
-                    // console.log(res)
-                    newCourse.involvers.push(res);
-                  },
-                  err => console.log(err)
-                )
-            }
+            newCourse.courseid = res.coursesArray[i].courseid;
+            newCourse.name = res.coursesArray[i].name;
+            newCourse.startday = new Date(res.coursesArray[i].startday);
+            newCourse.endday = new Date(res.coursesArray[i].endday);
+            newCourse.starttime = res.coursesArray[i].starttime;
+            newCourse.endtime = res.coursesArray[i].endtime;
+            newCourse.frequency = res.coursesArray[i].frequency;
 
             this.listCourses.push(newCourse);
-            console.log(newCourse.involvers);
+          }
+
+          for (let i = 0; i < res.listInvolversInfo.length; i++){
+            this.listInvolvers.push(res.listInvolversInfo[i]);
           }
           
+          // TODO: Signal to load UI
+          // ! Need to do here because this is asynchronous thread
+          // ! if no signal it will load first then get API data later
+          // ! So no data will be shown
+          this.filtersLoaded = Promise.resolve(true);
+          console.log(this.listInvolvers, this.listCourses);
         },
         err => {
           console.log(err);
         },
         () => { // *Complete part
 
-          console.log(this.listCourses[0].involvers.length);
-
-          // TODO: Signal to load UI
-          // ! Need to do here because this is asynchronous thread
-          // ! if no signal it will load first then get API data later
-          // ! So no data will be shown
-          this.filtersLoaded = Promise.resolve(true);
         }
       )
   }
 
+  pushUserInfoToCourse(){
+    for (let i = 0; i < this.listCourses.length; i++){
+      this._eventService.getListUserInfo(this.listCourses[i].involvers)
+        .subscribe(
+          res =>{
+
+          },
+          err => console.log(err)
+        )
+    }
+  }
+
+  /**
+   * TODO: Get Info of All involvers in listInvolver
+   * @param listInvovler 
+   */
+  getInvolvers(listInvovler){
+    console.log(listInvovler)
+    let involversInfo = [];
+    let done = false;
+    for (let j = 0; j < listInvovler.length; j++){
+      this._eventService.getUserInfo({email: listInvovler[j]})
+        .subscribe(
+          res =>{
+            // console.log(res)
+            involversInfo.push(res);
+          },
+          err => console.log(err),
+          () => {return involversInfo; }
+        )
+      done = true;
+    }
+    while (!done) {};
+    return involversInfo;
+  }
 }

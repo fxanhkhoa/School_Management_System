@@ -94,6 +94,19 @@ router.post('/get-user-info', async (req, res) =>{
    })
 })
 
+// * Get List user's info
+router.post('/get-list-user-info', async (req, res)=>{
+   let userData = req.body;
+   let retData = [];
+
+   for (let i = 0; i < userData.length; i++){
+      let foundUser = await User.findOne({email: userData[i]});
+      retData.push(foundUser);
+   }
+
+   res.status(200).send(retData);
+})
+
 router.post('/login', (req, res) =>{
    let userData = req.body
 
@@ -342,20 +355,28 @@ router.post('/create-course', verifyToken, async(req, res) =>{
 router.post('/get-courses-of-user', verifyToken, async (req, res) =>{
    let userData = req.body;
    let coursesArray = [];
+   let listInvolversInfo = [];
 
    // TODO: Get user with email
    // *input: email in json
    let userfound = await User.findOne(userData);
-
    for (let i = 0; i < userfound.courses.length; i++){
       // TODO: Get event by id
       let oneCourse = await Course.findById(userfound.courses[i]);
+      // TODO: Get Info Of User
+      let listUser = [];
+      for (let i = 0; i < oneCourse.involvers.length; i++){
+         let oneUser = await User.findOne({email: oneCourse.involvers[i]});
+         listUser.push(oneUser);
+      }
       // TODO: Push event to return array
       coursesArray.push(oneCourse);
+      listInvolversInfo.push(listUser);
    }
-
+   // console.log(listInvolversInfo);
+   // console.log(coursesArray);
    // TODO: Return result to angular
-   res.status(200).send(coursesArray);
+   res.status(200).send({coursesArray, listInvolversInfo});
 })
 
 module.exports = router

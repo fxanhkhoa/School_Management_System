@@ -1,4 +1,4 @@
-<div class="body-container" *ngIf="filtersLoaded | async">
+<div class="body-container" *ngIf="(filtersLoaded | async)">
     <h1 style="text-align: center;" class="style-80s">COURSES</h1>
     <div class="container">
         <fx-EventProgress
@@ -7,5 +7,4 @@
         >
         </fx-EventProgress>
     </div>
-    {{listCourses[0].involvers.length}}
 </div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class EventService {
   // *USER
   private _getUsers = "http://localhost:3000/api/get-users"
   private _getUserInfo = "http://localhost:3000/api/get-user-info"
+  private _getListUserInfo = "http://localhost:3000/api/get-list-user-info"
   
   // *COURSE
   private _createCourseUrl = "http://localhost:3000/api/create-course"
@@ -42,6 +44,10 @@ export class EventService {
 
   getUserInfo(email){
     return this.http.post<any>(this._getUserInfo, email);
+  }
+
+  getListUserInfo(listEmail): Observable<any>{
+    return this.http.post<any>(this._getListUserInfo, listEmail);
   }
 
   // * COURSE
