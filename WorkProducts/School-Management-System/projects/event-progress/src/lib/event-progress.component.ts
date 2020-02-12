@@ -24,6 +24,7 @@ export class EventProgressComponent implements OnInit {
    */
 
   @Input() course: Course;
+  @Input() involversInCourse: any;
 
   /**
    * * Variables for data binding
@@ -41,6 +42,7 @@ export class EventProgressComponent implements OnInit {
   ngOnInit() {
     this.completedPercent = this.course.getCompletedPercent();
     console.log(this.course);
+    console.log(this.involversInCourse);
 
     this.course.involvers.forEach(function(item, index, array){
       console.log('one');
