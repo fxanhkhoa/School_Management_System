@@ -30,19 +30,26 @@ export class EventProgressComponent implements OnInit {
    * * Variables for data binding
    */
   completedPercent;
-  dataSource = this.course;
+  dataSource = this.involversInCourse;
 
   columnsToDisplay = ['fullname', 'email'];
-  expandedElement: Course | null;
+  expandedElement: any | null;
 
   loaded = false;
+
+  startDayLocale;
+  endDayLocale;
 
   constructor() { }
 
   ngOnInit() {
     this.completedPercent = this.course.getCompletedPercent();
-    console.log(this.course);
-    console.log(this.involversInCourse);
+    console.log(this.course.startday);
+    // console.log(this.involversInCourse['fullname']);
+
+    // TODO: Get Locale date
+    this.startDayLocale = this.course.startday.toLocaleDateString();
+    this.endDayLocale = this.course.endday.toLocaleDateString();
 
     this.course.involvers.forEach(function(item, index, array){
       console.log('one');

@@ -1,8 +1,8 @@
 /* BrowserModule */
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 /* NgModule */
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 /* Angular Material */
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,7 +11,7 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatBu
 import { MatRadioModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
 import { MatStepperModule, MatAutocompleteModule, MatSelectModule, MatGridListModule } from '@angular/material';
 import { MatCardModule, MatExpansionModule, MatTooltipModule, MatButtonToggleModule } from '@angular/material';
-import { MatChipsModule, MatCheckboxModule, MatSnackBarModule } from '@angular/material';
+import { MatChipsModule, MatCheckboxModule, MatSnackBarModule, MatTableModule } from '@angular/material';
 
 /* Router */
 import {RouterModule, Routes} from '@angular/router';
@@ -54,6 +54,11 @@ import { StudentProgressComponent } from './Student/student-progress/student-pro
 import { CreateCourseComponent } from './utils/create-course/create-course.component';
 import { TeacherProgressComponent } from './teacher/teacher-progress/teacher-progress.component';
 import { TeacherScheduleComponent } from './teacher/teacher-schedule/teacher-schedule.component';
+
+/** Locale */
+import localeVi from '@angular/common/locales/vi';
+
+registerLocaleData(localeVi, 'vi')
 
 /* define Route */
 const appRoutes: Routes = [
@@ -130,6 +135,7 @@ const appRoutes: Routes = [
     MatChipsModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatTableModule,
     
     // * Owned Library Module
     CalendarSchedulerModule,
@@ -141,7 +147,7 @@ const appRoutes: Routes = [
     useClass: TokenInterceptorService,
     multi: true
   },
-  {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+  {provide: MAT_DATE_LOCALE, useValue: 'en-US'}
   ],
   bootstrap: [AppComponent],
 })

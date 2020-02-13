@@ -2,10 +2,11 @@
     <h1 style="text-align: center;" class="style-80s">COURSES</h1>
     <div class="container">
         <fx-EventProgress
-            *ngFor="let oneCourse of listCourses; let i = index"
-            [course] = 'oneCourse'
+            *ngFor="let eachCourse of listCourses; let i = index"
+            [course] = 'eachCourse'
             [involversInCourse] = 'listInvolvers[i]'
         >
         </fx-EventProgress>
     </div>
+    {{this.listCourses[0].startday | date:'fullDate':'-999'}}
 </div>

@@ -58,7 +58,7 @@ export class TeacherProgressComponent implements OnInit {
     this._eventService.getCoursesOfUser({email})
       .subscribe(
         res =>{
-          // console.log(res);
+          console.log(res);
           for (let i = 0; i < res.coursesArray.length; i++){
             let newCourse = new Course();
             
@@ -69,6 +69,8 @@ export class TeacherProgressComponent implements OnInit {
             newCourse.starttime = res.coursesArray[i].starttime;
             newCourse.endtime = res.coursesArray[i].endtime;
             newCourse.frequency = res.coursesArray[i].frequency;
+
+            console.log(newCourse.startday.getTimezoneOffset().toString())
 
             this.listCourses.push(newCourse);
           }
