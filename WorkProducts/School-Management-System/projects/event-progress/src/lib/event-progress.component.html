@@ -49,15 +49,15 @@
 
     <!-- Course involvers (Expandable Table) -->
     <div class="row" style="width: 100%;">
-        <div class="col">
-            <mat-table
+        <div class="col" style="width: 100%;">
+            <table mat-table
                 [dataSource]="dataSource" multiTemplateDataRows
                 class="mat-elevation-z8"
             >
         
                 <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index">
                     <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-                    <td mat-cell *matCellDef="let element"> {{element[i]} </td>
+                    <td mat-cell *matCellDef="let element"> {{element[column]} </td>
                 </ng-container>
 
                 <!-- <ng-container matColumnDef="email">
@@ -90,7 +90,7 @@
                     (click)="expandedElement = expandedElement === element ? null : element">
                 </tr>
                 <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-            </mat-table>
+            </table>
         </div>
     </div>
 

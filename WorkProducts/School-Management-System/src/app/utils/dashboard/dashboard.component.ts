@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit {
     this._course.courseid = "aaa";
     this._course.name = "BBB";
     
-    console.log(this.ELEMENT_DATA['name']);
+    console.log(this.ELEMENT_DATA);
   }
 
   DayDetailView(event){
