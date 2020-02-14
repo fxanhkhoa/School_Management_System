@@ -28,7 +28,7 @@ export class Course {
         /**
          * *Algorithm: Loop each day, if it's in frequency so it is a day
          */
-        for (var d = this.startday; d <= this.endday; d.setDate(d.getDate() + 1)){
+        for (var d = new Date(this.startday.valueOf()); d <= this.endday; d.setDate(d.getDate() + 1)){
             // console.log(d.getDay());
             // TODO: if this day is in frequency
             if (this.frequency.includes(this.dayOfWeek[d.getDay()])){

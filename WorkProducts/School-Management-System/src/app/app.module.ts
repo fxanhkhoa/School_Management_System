@@ -147,7 +147,7 @@ const appRoutes: Routes = [
     useClass: TokenInterceptorService,
     multi: true
   },
-  {provide: MAT_DATE_LOCALE, useValue: 'en-US'}
+  {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ],
   bootstrap: [AppComponent],
 })

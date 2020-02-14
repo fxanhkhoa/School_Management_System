@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/utils/services/auth.service';
 import { Router } from '@angular/router';
-import { Course, User } from 'event-progress';
+import { Course } from 'event-progress';
 import { EventService } from 'src/app/utils/services/event.service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -30,6 +30,8 @@ export class TeacherProgressComponent implements OnInit {
   loadedInvolver = false;
   filtersLoaded: Promise<boolean>;
 
+  newtime: Date;
+
 
   dataAfterSubcribe: BehaviorSubject<any[]> = new BehaviorSubject<any>(null);
 
@@ -46,7 +48,7 @@ export class TeacherProgressComponent implements OnInit {
     } else {
       /** Do nothing */
     }
-
+    this.filtersLoaded = Promise.resolve(false);
     this.getCourses();
   }
 
@@ -69,8 +71,6 @@ export class TeacherProgressComponent implements OnInit {
             newCourse.starttime = res.coursesArray[i].starttime;
             newCourse.endtime = res.coursesArray[i].endtime;
             newCourse.frequency = res.coursesArray[i].frequency;
-
-            console.log(newCourse.startday.getTimezoneOffset().toString())
 
             this.listCourses.push(newCourse);
           }

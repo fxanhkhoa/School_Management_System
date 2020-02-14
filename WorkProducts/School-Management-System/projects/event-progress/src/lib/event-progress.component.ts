@@ -44,7 +44,8 @@ export class EventProgressComponent implements OnInit {
 
   ngOnInit() {
     this.completedPercent = this.course.getCompletedPercent();
-    console.log(this.course.startday);
+    this.course.startday = new Date(this.course.startday);
+    console.log(this.course.startday.getMonth(), this.course.startday.getUTCMonth());
     // console.log(this.involversInCourse['fullname']);
 
     // TODO: Get Locale date
